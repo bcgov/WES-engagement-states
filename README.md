@@ -20,7 +20,9 @@ The data for the tables and graphs has not been publically released. The code us
 
 #### Code
 
-The code for this data visualization is written in the 
+The code for this data visualization is written in *R*:
+
+> a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc. [from CRAN, The Comprehensive R Archive Network](https://cran.r-project.org/)
 
 ### Getting Help or Reporting an Issue
 
