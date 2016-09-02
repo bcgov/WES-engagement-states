@@ -1,0 +1,25 @@
+ORGID,ORG,Engagement State,Satisfaction,Commitment,Employees,SORT
+LOON,Loon,Engaged,86.3,87.4,97,387
+LOON,Loon,Moderately Engaged,69.8,69.3,26,330
+LOON,Loon,Happily Detached,71.9,48.5,8,138
+LOON,Loon,Unhappily Dedicated,41.8,73.1,32,141
+LOON,Loon,Minimally Engaged,45.4,46.9,16,183
+LOON,Loon,Disengaged,18.2,22,33,167
+OWL,Owl,Engaged,88.7,88.6,98,406
+OWL,Owl,Moderately Engaged,67.4,72.3,41,390
+OWL,Owl,Happily Detached,68.8,48.8,10,624
+OWL,Owl,Unhappily Dedicated,39,76.5,25,230
+OWL,Owl,Minimally Engaged,37.5,42.9,21,220
+OWL,Owl,Disengaged,10.8,11.7,14,305
+HUMM,Hummingbird,Engaged,84.4,85,79,711
+HUMM,Hummingbird,Moderately Engaged,69.9,70.6,34,810
+HUMM,Hummingbird,Happily Detached,72.8,43.2,11,625
+HUMM,Hummingbird,Unhappily Dedicated,45.5,68.2,11,546
+HUMM,Hummingbird,Minimally Engaged,41,45.9,33,294
+HUMM,Hummingbird,Disengaged,22.4,25,19,665
+HER,Great Blue Heron,Engaged,89.1,88.6,91,779
+HER,Great Blue Heron,Moderately Engaged,65.5,70.6,34,892
+HER,Great Blue Heron,Happily Detached,66.1,42,14,767
+HER,Great Blue Heron,Unhappily Dedicated,43.1,73.7,9,928
+HER,Great Blue Heron,Minimally Engaged,45.2,42.4,13,546
+HER,Great Blue Heron,Disengaged,22.8,23.9,11,794

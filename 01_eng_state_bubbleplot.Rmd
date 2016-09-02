@@ -1,0 +1,46 @@
+---
+title: "Engagement States"
+author: "Martin Monkman"
+date: "September 2, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Employee Engagement
+
+Employee engagement is made up of three components:
+* job satisfaction
+* organization satisfaction
+* commitment 
+
+This chart ...
+
+```{r 1}
+
+setwd("C:/@data/GitHub/WES_engagement_states")
+
+library(ggplot2)
+library(dplyr)
+
+eng_state_data <- read.csv("./data/eng_states_data.csv")
+
+eng_state_data <- eng_state_data %>%
+  group_by(ORGID) %>%
+  mutate(org_pct = Employees/sum(Employees)*100)
+
+```
+
+
+### The Plot
+
+```{r}
+
+q <- ggplot(subset(eng_state_data, ORGID == "OWL"),
+            aes(x = Commitment, y = Satisfaction))
+q + geom_point(aes(size = org_pct))
+
+```
+
