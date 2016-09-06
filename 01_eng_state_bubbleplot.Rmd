@@ -18,7 +18,9 @@ Employee engagement is made up of three components:
 
 This chart ...
 
-```{r 1}
+```{r echo = FALSE, message = FALSE}
+
+# preliminaries
 
 setwd("C:/@data/GitHub/WES_engagement_states")
 
@@ -36,11 +38,59 @@ eng_state_data <- eng_state_data %>%
 
 ### The Plot
 
+Basic plots
+
 ```{r}
 
-q <- ggplot(subset(eng_state_data, ORGID == "OWL"),
+eng_state_plot <- ggplot(subset(eng_state_data, ORGID == "OWL",),
             aes(x = Commitment, y = Satisfaction))
-q + geom_point(aes(size = org_pct))
+
+eng_state_plot + 
+  geom_point(aes(size = org_pct))
+
+eng_state_plot + 
+  geom_point(aes(size = org_pct), shape = 21, colour = "black", fill = "cornsilk") +
+  scale_size_area(max_size = 65, guide=FALSE)
+
+# set axis
+
+eng_state_plot + 
+  geom_point(aes(size = org_pct), shape = 21, colour = "black", fill = "cornsilk") +
+  scale_size_area(max_size = 50, guide=FALSE) +
+  xlim(0, 100) +
+  ylim(0, 100)
+
+
 
 ```
 
+
+Add colour to the balloons
+
+```{r}
+
+eng_state_plot <- ggplot(subset(eng_state_data, ORGID == "OWL",),
+            aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) +
+  geom_point(aes(size = org_pct, stat="identity"), 
+             shape = 21, colour = "black") +
+  scale_size_area(max_size = 50, guide=FALSE) + 
+  xlim(0,100) + ylim(0,100)
+
+
+eng_state_plot  
+
+
+```
+
+Add:
+
+* colour palette (to above plot)
+
+* sort by rank (not alphabetical)
+
+* numeric labels
+
+* theme
+
+
+-30-
