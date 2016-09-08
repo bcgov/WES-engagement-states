@@ -26,6 +26,8 @@ The code for this data visualization is written in *R*:
 
 ##### Files
 
+* [01_datasummarization.rmd](https://github.com/bcgov/WES_engagement_states/blob/master/01_datasummarization.rmd)
+
 * [02_eng_state_bubbleplot.Rmd](https://github.com/bcgov/WES_engagement_states/blob/master/02_eng_state_bubbleplot.Rmd)
 
 ### Getting Help or Reporting an Issue
