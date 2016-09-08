@@ -24,6 +24,10 @@ The code for this data visualization is written in *R*:
 
 > a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc. [from CRAN, The Comprehensive R Archive Network](https://cran.r-project.org/)
 
+##### Files
+
+* [02_eng_state_bubbleplot.Rmd](https://github.com/bcgov/WES_engagement_states/blob/master/02_eng_state_bubbleplot.Rmd)
+
 ### Getting Help or Reporting an Issue
 
 To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/WES_engagement_states/issues/).
