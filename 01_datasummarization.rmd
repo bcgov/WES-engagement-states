@@ -1,0 +1,8 @@
+# Work Environment Survey - Microdata to summary tables
+
+**NOTES:**
+
+1. Placeholder for code to be developed and posted.
+
+2. Due to confidentiality constraints, the original data will not be posted to the github repo
+
