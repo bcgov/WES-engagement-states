@@ -22,7 +22,7 @@ This chart ...
 
 # preliminaries
 
-setwd("C:/@data/GitHub/WES_engagement_states")
+setwd("C:/@data/GitHub/WES-engagement-states")
 
 library(ggplot2)
 library(dplyr)
