@@ -33,6 +33,21 @@ eng_state_data <- eng_state_data %>%
   group_by(ORGID) %>%
   mutate(org_pct = Employees/sum(Employees)*100)
 
+head(eng_state_data)
+
+# set the sort function 
+
+eng_state_data$Engagement.State <- factor(eng_state_data$Engagement.State, 
+       levels = c("Engaged", "Moderately Engaged",
+                  "Happily Detached", "Unhappily Dedicated",
+                  "Minimally Engaged", "Disengaged"))
+         
+
+eng_state_data <- eng_state_data %>%
+  arrange(ORG, Engagement.State)
+
+eng_state_data
+
 ```
 
 
@@ -67,14 +82,39 @@ eng_state_plot +
 
 Add colour to the balloons
 
+1. Using a Colour Brewer palette -- light to dark
+
 ```{r}
 
-eng_state_plot <- ggplot(subset(eng_state_data, ORGID == "OWL",),
-            aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) +
+eng_state_plot <- 
+  ggplot(subset(eng_state_data, ORGID == "OWL",),
+            aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) + 
   geom_point(aes(size = org_pct, stat="identity"), 
              shape = 21, colour = "black") +
   scale_size_area(max_size = 50, guide=FALSE) + 
-  xlim(0,100) + ylim(0,100)
+  xlim(0,100) + ylim(0,100) +
+  scale_fill_manual(values=c("#edf8fb", "#ccece6", "#99d8c9", 
+                               "#66c2a4", "#2ca25f", "#006d2c"))
+
+
+eng_state_plot  
+
+
+```
+
+
+
+```{r}
+
+eng_state_plot <- 
+  ggplot(subset(eng_state_data, ORGID == "OWL",),
+            aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) + 
+  geom_point(aes(size = org_pct, stat="identity"), 
+             shape = 21, colour = "black") +
+  scale_size_area(max_size = 50, guide=FALSE) + 
+  xlim(0,120) + ylim(0,120) +
+  scale_fill_manual(values=c("#00348a", "#0057e7", "#FFD37F", 
+                               "#ffa700", "#E68179", "#d62d20"))
 
 
 eng_state_plot  
