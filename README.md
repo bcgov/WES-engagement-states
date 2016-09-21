@@ -9,6 +9,8 @@ Work Environment Survey employee engagement states
 
 * Plots showing the number of public service employees in six different engagement states, and how those numbers have changed between 2013 and 2015.
 
+* The change over time may be represented by a Sankey plot; here's an example / tutorial of how to do this from Kyle Walker ([walkerke](https://github.com/walkerke): ["Interactive flow visualization in R"](http://personal.tcu.edu/kylewalker/interactive-flow-visualization-in-r.html)
+
 * The BC Stats website has more information about the [British Columbia Public Service Work Environment Survey](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EmployeeResearch/WES.aspx)
 
 ### Usage
