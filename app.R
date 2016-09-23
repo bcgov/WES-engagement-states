@@ -148,7 +148,7 @@ server <- function(input, output, session) {
     sankeyNetwork(Links = migration_sankey, Nodes = states_df,
                   Source = 'eng_past', Target = 'eng_current', Value = 'num',
                   NodeID = 'state', fontSize = 22, fontFamily = "Arial",
-                  nodeWidth = "20", nodePadding = "10")
+                  nodeWidth = "20", nodePadding = "10", iterations = 0)
   })
 }
 
