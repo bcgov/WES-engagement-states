@@ -1,5 +1,4 @@
 # TODO:
-# - see why there's a console message when choosing a new org
 # - make app much nicer
 # - refactor code and directory structure
 # - make plot interactive
@@ -25,6 +24,7 @@ eng_state_data$Engagement.State <- factor(
 eng_state_data <- eng_state_data %>%
   group_by(ORGID) %>%
   mutate(Percent = round(Employees / sum(Employees) * 100)) %>%
+  ungroup() %>%
   arrange(ORG, Engagement.State)
 
 # Code for the engagement plot
