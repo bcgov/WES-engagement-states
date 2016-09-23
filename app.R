@@ -1,12 +1,11 @@
-# TODO:
-# - make app much nicer
-# - refactor code and directory structure
-# - make plot interactive
-
 library(shiny)
 library(ggplot2)
 library(dplyr)
 library(DT)
+library(networkD3)
+
+# Define the possible engagement states
+STATES <- c("Engaged", "Dedicated", "Detached", "Disengaged", "Incomplete", "N/A")
 
 # Constants to use in the code
 YEAR_START <- 2013
@@ -31,7 +30,7 @@ eng_state_data <- eng_state_data %>%
 engagement_plot <- function(data) {
   mean_satisfaction <- sum(data$Satisfaction * data$Percent / 100)
   mean_commitment <- sum(data$Commitment * data$Percent / 100)
-  
+
   ggplot(
     data,
     aes(x = Commitment, y = Satisfaction,
@@ -72,7 +71,8 @@ ui <- fluidPage(
     tabPanel(
       sprintf("Migration analysis %s-%s", YEAR_START, YEAR_END),
       value = "tab_migration",
-      "[TODO]"
+      sankeyNetworkOutput("migration_plot"),
+      tableOutput("migration_table")
     ),
     tabPanel(
       "Methods",
@@ -118,6 +118,37 @@ server <- function(input, output, session) {
   
   output$engagement_plot <- renderPlot({
     engagement_plot(filtered_data_agg())
+  })
+  
+  # ------- Tab 2: Migration analysis
+  
+  # Every time a new org is chosen, create MOCK migration data
+  migration_data <- reactive({
+    input$org_select
+    
+    migration <- expand.grid(eng_past = STATES, eng_current = STATES,
+                             KEEP.OUT.ATTRS = FALSE) %>%
+      arrange(eng_past, eng_current) %>%
+      mutate(num = round(runif(nrow(.), 10, 250)))
+    migration
+  }) 
+  
+  output$migration_table <- renderTable({
+    migration_data()
+  })
+  
+  output$migration_plot <- renderSankeyNetwork({
+    # Transform migration data to a more useful format for sankey diagrams
+    migration_sankey <- migration_data()
+    migration_sankey$eng_past <- as.integer(migration_sankey$eng_past) - 1
+    migration_sankey$eng_current <- as.integer(migration_sankey$eng_current) - 1 +
+      length(STATES)
+    states_df <- data.frame(state = c(STATES, STATES))
+    
+    sankeyNetwork(Links = migration_sankey, Nodes = states_df,
+                  Source = 'eng_past', Target = 'eng_current', Value = 'num',
+                  NodeID = 'state', fontSize = 22, fontFamily = "Arial",
+                  nodeWidth = "20", nodePadding = "10")
   })
 }
 
