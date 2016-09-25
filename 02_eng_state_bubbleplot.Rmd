@@ -48,6 +48,15 @@ eng_state_data <- eng_state_data %>%
 
 eng_state_data
 
+eng_state_data <- eng_state_data %>%
+  group_by(ORGID) %>%
+  mutate(Percent = round(Employees / sum(Employees) * 100)) %>%
+  ungroup() %>%
+  arrange(ORG, Engagement.State)
+
+head(eng_state_data)
+
+
 ```
 
 
@@ -117,15 +126,38 @@ Disengaged -- Dark Red: 164, 0, 0 -- #A40000
 
 ```{r}
 
+# Constants to use in the code
+PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
+
+
+# additional variables for the plot
+
+data <- (subset(eng_state_data, ORGID == "OWL"))
+
+  mean_satisfaction <- sum(data$Satisfaction * data$Percent / 100)
+  mean_commitment <- sum(data$Commitment * data$Percent / 100)
+
+
 eng_state_plot <- 
-  ggplot(subset(eng_state_data, ORGID == "OWL",),
-            aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) + 
+  ggplot(data,
+         aes(x = Commitment, y = Satisfaction, fill = Engagement.State)) +   
+  # points
   geom_point(aes(size = org_pct, stat="identity"), 
              shape = 21, colour = "black") +
   scale_size_area(max_size = 50, guide=FALSE) + 
-  xlim(0,120) + ylim(0,120) +
-  scale_fill_manual(values=c("#325A80", "#5091CD", "#FFFF05", 
-                               "#D2BE32", "#FA1E1E", "#A40000"))
+  scale_fill_manual(values = PLOT_COLS) + 
+  # cross-hairs
+  geom_vline(xintercept = mean_commitment, col = "#555555") +
+  geom_hline(yintercept = mean_satisfaction, col = "#555555") +
+  # axis
+  scale_x_continuous(breaks=c(0,25,50,75,100), limits=c(-10,125)) +
+  scale_y_continuous(breaks=c(0,25,50,75,100), limits=c(-10,125)) +
+  coord_fixed() +
+    
+  theme_bw(26) +
+  guides(fill = guide_legend("Engagement State", override.aes = list(size = 4))) +
+  theme(legend.key = element_blank(), panel.grid.minor = element_blank(),
+        legend.key.height = unit(1.5, "line")) 
 
 
 eng_state_plot  
