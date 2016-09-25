@@ -1,0 +1,97 @@
+body {
+  background: #fafafa;
+  font-size: 18px;
+}
+.container {
+  border: 1px solid #ccc;
+  background: #fff;
+  border-width: 0 1px 1px;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+}
+#logo {
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+#titleSection {
+  text-align: center;
+  margin:30px 0;
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  border-top: 2px solid orange;
+  border-bottom: 0;
+  font-weight: bold;
+}
+
+.nav-tabs {
+  font-size: 1.1em;
+}
+
+.nav-tabs>li {
+  margin-left: 7px;
+}
+
+.nav-tabs>li>a {
+  background-color: #f8f8f8;
+  border: 1px solid #dddddd;
+  padding: 10px 30px;
+  margin-left: 5px;
+}
+
+.nav>li>a:hover,
+.nav>li>a:focus {
+  background-color: #dddddd;
+}
+@media only screen and (max-width: 500px) {
+  .nav>li {
+    margin: 0;
+    float: none;
+  }
+  .nav>li>a {
+    margin-right: 0;
+    padding: 0 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.1em;
+    border-radius: 0;
+    border-bottom-width: 0;
+  }
+  .nav>li.active>a,
+  .nav>li.active>a:hover,
+  .nav>li.active>a:focus {
+    background: #eee;
+    border-top: 1px solid #ddd;
+  }
+}
+
+.tab-content {
+  padding-top: 15px;
+}
+
+#engagement_table,
+#migration_table {
+  margin-top: 30px;
+}
+
+#engagement_table tbody tr:hover,
+#migration_table tbody tr:hover {
+  background: #c3cee4 !important;
+}
+
+#engagement_table .dataTables_length,
+#migration_table .dataTables_length {
+  margin-top: 15px;
+}
+
+#engagement_table .dataTables_scroll,
+#migration_table .dataTables_scroll {
+  border: 1px solid #000;
+}
+
+#engagement_table .dataTables_scrollBody,
+#migration_table .dataTables_scrollBody {
+  border: 0 none;
+}

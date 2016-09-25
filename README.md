@@ -9,30 +9,25 @@ Work Environment Survey employee engagement states
 
 * Plots showing the number of public service employees in six different engagement states, and how those numbers have changed between 2013 and 2015.
 
-* The change over time may be represented by a Sankey plot; possible R packages to look into for generating these plots: `googleVis` or `networkD3`  
-
 * The BC Stats website has more information about the [British Columbia Public Service Work Environment Survey](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EmployeeResearch/WES.aspx)
 
 ### Usage
+
+#### Interactive app
+
+A live version of the app is hosted at [https://daattali.com/shiny/engagement_states/](https://daattali.com/shiny/engagement_states/)
+
+To run the app locally, clone this git repository, open the `app.R` file in RStudio, and click the *Run App* button. 
 
 #### Data
 
 The data for the tables and graphs has not been publically released. The code uses test data, with randomized values.
 
-
 #### Code
 
-The code for this data visualization is written in *R*:
+The code for this data visualization and web application is written in *R*:
 
 > a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques: linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, etc. [from CRAN, The Comprehensive R Archive Network](https://cran.r-project.org/)
-
-##### Files
-
-* [01_datasummarization.rmd](https://github.com/bcgov/WES_engagement_states/blob/master/01_datasummarization.rmd)
-
-* [02_eng_state_bubbleplot.Rmd](https://github.com/bcgov/WES_engagement_states/blob/master/02_eng_state_bubbleplot.Rmd)
-
-* [03_eng_state_migration.rmd] (placeholder)
 
 ### Getting Help or Reporting an Issue
 

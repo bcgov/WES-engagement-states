@@ -8,12 +8,10 @@ library(networkD3)
 STATES <- c("Engaged", "Dedicated", "Detached", "Disengaged", "Incomplete", "N/A")
 
 # Constants to use in the code
-YEAR_START <- 2013
-YEAR_END <- 2015
 PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
 
 # Initialize the data
-eng_state_data <- read.csv("../WES-engagement-states/data/eng_states_data.csv")
+eng_state_data <- read.csv("data/eng_states_data.csv")
 eng_state_data$Engagement.State <- factor(
   eng_state_data$Engagement.State, 
   levels = c("Engaged", "Moderately Engaged",
@@ -26,69 +24,85 @@ eng_state_data <- eng_state_data %>%
   ungroup() %>%
   arrange(ORG, Engagement.State)
 
+org_names_list <-
+  c("All" = "all",
+    setNames(unique(eng_state_data$ORGID) %>% as.character(),
+             unique(eng_state_data$ORG) %>% as.character()
+  ))
+
 # Code for the engagement plot
 engagement_plot <- function(data) {
   mean_satisfaction <- sum(data$Satisfaction * data$Percent / 100)
   mean_commitment <- sum(data$Commitment * data$Percent / 100)
-
+  
   ggplot(
     data,
     aes(x = Commitment, y = Satisfaction,
         fill = Engagement.State)) +
     geom_vline(xintercept = mean_commitment, col = "#555555") +
     geom_hline(yintercept = mean_satisfaction, col = "#555555") +
-    geom_point(aes(size = Percent, stat = "identity"), 
+    geom_point(aes(size = Percent), 
                shape = 21, colour = "black") +
     scale_size_area(max_size = 50, guide = FALSE) + 
     xlim(0, 120) + ylim(0, 120) +
     scale_fill_manual(values = PLOT_COLS) + 
     
-    theme_bw(20) +
+    theme_bw(26) +
     guides(fill = guide_legend("Engagement State", override.aes = list(size = 4))) +
     theme(legend.key = element_blank(), panel.grid.minor = element_blank(),
           legend.key.height = unit(1.5, "line"))
 }
 
 # Shiny app
-ui <- fluidPage(
-  h1("WES Engagement"),
-  conditionalPanel(
-    condition = "input.main_nav != 'tab_info'",
-    selectInput("org_select", "Organization:",
-                choices = c("All" = "all",
-                  setNames(unique(eng_state_data$ORGID) %>% as.character(), unique(eng_state_data$ORG) %>% as.character())
-                )
-    )
+ui <- fixedPage(
+  title = "BC Work Environment Survey",
+  tags$head(
+    tags$link(href = "app.css", rel = "stylesheet")
   ),
-  tabsetPanel(
-    id = "main_nav",
-    tabPanel(
-      paste0("Engagement state ", YEAR_END),
-      value = "tab_engagement",
-      plotOutput("engagement_plot"),
-      tableOutput("engagement_table")
+  fixedRow(column(
+    12,
+    img(src = "BCStats.png", id = "logo"),
+    div(id = "titleSection",
+        h1(strong("BC Work Environment Survey"))
     ),
-    tabPanel(
-      sprintf("Migration analysis %s-%s", YEAR_START, YEAR_END),
-      value = "tab_migration",
-      sankeyNetworkOutput("migration_plot"),
-      tableOutput("migration_table")
-    ),
-    tabPanel(
-      "Methods",
-      value = "tab_info",
-      "[TODO]"
+    tabsetPanel(
+      id = "main_nav",
+      tabPanel(
+        paste0("Engagement state "),
+        value = "tab_engagement",
+        selectInput(
+          "engagement_org", "Organization:",
+          choices = org_names_list
+        ),
+        plotOutput("engagement_plot", height = "500px"),
+        DT::dataTableOutput("engagement_table")
+      ),
+      tabPanel(
+        sprintf("Migration analysis"),
+        value = "tab_migration",
+        selectInput(
+          "migration_org", "Organization:",
+          choices = org_names_list
+        ),
+        sankeyNetworkOutput("migration_plot"),
+        DT::dataTableOutput("migration_table")
+      ),
+      tabPanel(
+        "Methods",
+        value = "tab_info",
+        "[TODO]"
+      )
     )
-  )
+  ))
 )
 
 server <- function(input, output, session) {
-  filtered_data <- eventReactive(input$org_select, {
-    if (input$org_select == "all") {
+  filtered_data <- eventReactive(input$engagement_org, {
+    if (input$engagement_org == "all") {
       eng_state_data
     } else {
       eng_state_data %>%
-        filter(ORGID == input$org_select)
+        filter(ORGID == input$engagement_org)
     }
   })
   
@@ -97,7 +111,7 @@ server <- function(input, output, session) {
       dplyr::select_("Engagement.State", "Satisfaction", "Commitment",
                      "Employees", "Percent")
     
-    if (input$org_select != "all") {
+    if (input$engagement_org != "all") {
       data
     } else {
       data %>%
@@ -111,9 +125,23 @@ server <- function(input, output, session) {
         arrange(Engagement.State)
     }
   })
-
-  output$engagement_table <- renderTable({
-    filtered_data()
+  
+  output$engagement_table <- DT::renderDataTable({
+    data <- filtered_data() %>%
+      dplyr::select(ORG, Engagement.State, Satisfaction, Commitment,
+                    Employees, Percent)
+    DT::datatable(
+      data,
+      rownames = FALSE,
+      selection = 'none',
+      class = 'stripe',
+      options = list(
+        searching = FALSE, paging = TRUE,
+        scrollX = TRUE, scrollY = FALSE,
+        dom = 'tlp',
+        scrollCollapse = TRUE
+      )
+    )
   })
   
   output$engagement_plot <- renderPlot({
@@ -124,7 +152,7 @@ server <- function(input, output, session) {
   
   # Every time a new org is chosen, create MOCK migration data
   migration_data <- reactive({
-    input$org_select
+    input$migration_org
     
     migration <- expand.grid(eng_past = STATES, eng_current = STATES,
                              KEEP.OUT.ATTRS = FALSE) %>%
@@ -133,8 +161,21 @@ server <- function(input, output, session) {
     migration
   }) 
   
-  output$migration_table <- renderTable({
-    migration_data()
+  output$migration_table <- DT::renderDataTable({
+    data <- migration_data()
+    
+    DT::datatable(
+      data,
+      rownames = FALSE,
+      selection = 'none',
+      class = 'stripe',
+      options = list(
+        searching = FALSE, paging = TRUE,
+        scrollX = TRUE, scrollY = FALSE,
+        dom = 'tlp',
+        scrollCollapse = TRUE
+      )
+    )
   })
   
   output$migration_plot <- renderSankeyNetwork({
