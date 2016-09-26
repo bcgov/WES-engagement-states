@@ -1,18 +1,25 @@
 fixedPage(
   title = "BC Work Environment Survey",
+  
   tags$head(
     tags$link(href = "app.css", rel = "stylesheet")
   ),
+  
   fixedRow(column(
     12,
+    
+    # Header
     img(src = "BCStats.png", id = "logo"),
     div(id = "titleSection",
         h1(strong("BC Work Environment Survey"))
     ),
+    
     tabsetPanel(
       id = "main_nav",
+      
+      # Tab 1 - Engagement state
       tabPanel(
-        paste0("Engagement state "),
+        paste0("Engagement state"),
         value = "tab_engagement",
         selectInput(
           "engagement_org", "Organization:",
@@ -21,6 +28,8 @@ fixedPage(
         plotOutput("engagement_plot", height = "500px"),
         DT::dataTableOutput("engagement_table")
       ),
+      
+      # Tab 2 - Migration analysis
       tabPanel(
         sprintf("Migration analysis"),
         value = "tab_migration",
@@ -31,6 +40,8 @@ fixedPage(
         sankeyNetworkOutput("migration_plot"),
         DT::dataTableOutput("migration_table")
       ),
+      
+      # Tab 3 - Description
       tabPanel(
         "Methods",
         value = "tab_info",
