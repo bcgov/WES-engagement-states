@@ -17,7 +17,11 @@ Work Environment Survey employee engagement states
 
 A live version of the app is hosted at [https://daattali.com/shiny/engagement_states/](https://daattali.com/shiny/engagement_states/)
 
-To run the app locally, clone this git repository, open the `app.R` file in RStudio, and click the *Run App* button. 
+To run the app locally:
+
+- Clone this git repository
+- Open the `shiny/ui.R` file or `shiny/server.R` file in RStudio
+- Click the *Run App* button 
 
 #### Data
 
