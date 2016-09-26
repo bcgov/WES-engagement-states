@@ -30,7 +30,7 @@ org_names_list <-
   c("All" = "all",
     setNames(
       eng_state_data$ORGID %>% unique() %>% as.character(),
-      eng_state_data$ORGID %>% unique() %>% as.character()
+      eng_state_data$ORG %>% unique() %>% as.character()
     ))
 
 # Code for the engagement plot
