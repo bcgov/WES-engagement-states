@@ -8,7 +8,7 @@ library(dplyr)
 library(rmarkdown)
 library(DT) # using the more advanced Datatable package
 
-function(input, output) {
+server <- function(input, output) {
   
   output$EngagementTable <- DT::renderDataTable(CombinedStates1 %>% 
                                              filter(ORGID15==input$Organization),
@@ -72,4 +72,35 @@ function(input, output) {
   
 }
 
+######### Ui section below ########
 
+ui <- fluidPage(    
+  
+  # Give the page a title
+  titlePanel("Engagement State"),
+  
+  # Generate a row with a sidebar
+  sidebarLayout(      
+    
+    # Define the sidebar with one input
+    sidebarPanel(
+      selectInput("Organization", "Organization ID", 
+                  unique(as.character(CombinedStates1$ORGID15))),
+      hr(),
+      downloadButton('downloadFile','Download Report', class="dlButton"),
+      helpText("Download pre-existing reports"),
+      hr(),
+      downloadButton('generateReport','Generate Report',class="dlButton"),
+      helpText("Generate and download reports dynamically")
+    ),
+    
+    # The main panel
+    mainPanel(
+      h3(textOutput("orgName")), # Dynamic header with the full name of the organization
+      DT::dataTableOutput("EngagementTable")  # The main datatable
+    )
+    
+  )
+)
+
+shinyApp(ui = ui, server = server)
