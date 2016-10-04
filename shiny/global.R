@@ -82,9 +82,12 @@ migration_plot <- function(data) {
   data$eng_past <- as.integer(data$eng_past) - 1
   data$eng_current <- as.integer(data$eng_current) - 1 + length(STATES)
   states_df <- data.frame(state = c(STATES, STATES))
+  colours_js <- paste0('"', paste(PLOT_COLS, collapse = '","'), '"')
+  colours_js_d3 <- sprintf('d3.scale.ordinal().range([%s])', colours_js)
   
   sankeyNetwork(Links = data, Nodes = states_df,
                 Source = 'eng_past', Target = 'eng_current', Value = 'num',
                 NodeID = 'state', fontSize = 22, fontFamily = "Arial",
-                nodeWidth = "20", nodePadding = "10", iterations = 0)
+                nodeWidth = "20", nodePadding = "10", iterations = 0,
+                NodeGroup = 'state', colourScale = JS(colours_js_d3))
 }
