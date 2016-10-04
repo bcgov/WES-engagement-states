@@ -1,4 +1,4 @@
-MainTable1 <- as.data.frame(read.csv("Data/sampledata.csv"))
+MainTable1 <- as.data.frame(read.csv("data/sampledata.csv"))
 
 library(dplyr)
 library(tidyr)
@@ -75,9 +75,27 @@ assign(paste(i), long_MT3 %>% filter(ORGID15==i | ORGID13_15format==i) %>%
             Count2015 = sum(Yr=="2015" & ORGID15==i & !is.na(EngagementScore))) %>% 
   mutate(NetGainOrLoss = Count2015 - Count2013) %>% 
   mutate(PercentageChange = ((Count2015-Count2013)/(Count2013))* 100))
-  saveRDS(get(i), paste0("Data/",i,".rds"))
+  saveRDS(get(i), paste0("data/",i,".rds"))
 }
 
-saveRDS(MainTable3, "Data/MainTable3.rds")
-saveRDS(CountOutputTable1, "Data/CountOutputTable1.rds")
-saveRDS(long_MT3, "Data/long_MT3.rds")
+# Combine all the organization state tables very inelegantly
+
+CombinedStates <- bind_rows(AG=AG,AGRI=AGRI,ARR=ARR,AVED=AVED,BCPSA=BCPSA,
+                            CFD=CFD,CSCD=CSCD,EAO=EAO,EBC=EBC,EDUC=EDUC,EM=EM,
+                            EMBC=EMBC,ENV=ENV,FIN=FIN,FLNR=FLNR,GCPE=GCPE,HLTH=HLTH,
+                            JTSTL=JTSTL,MIT=MIT,NGD=NGD,OMB=OMB,PGT=PGT,PO=PO,
+                            PSSG=PSSG,SBRT=SBRT,SDSI=SDSI,TICS=TICS,TRAN=TRAN, .id="source")
+
+CombinedStates <- rename(CombinedStates, ORGID15 = source)
+CombinedStates1 <- inner_join(CombinedStates, OrgNameID %>% select(ORGANIZATION15, ORGID15), by = "ORGID15")
+CombinedStates1 <- CombinedStates1 %>% mutate(PercentageChange = round(PercentageChange,digits=2))
+
+
+# Save relevant dataframes as external rds files
+
+saveRDS(MainTable3, "data/MainTable3.rds")
+saveRDS(CountOutputTable1, "data/CountOutputTable1.rds")
+saveRDS(long_MT3, "data/long_MT3.rds")
+saveRDS(CombinedStates1,"data/CombinedStates1.rds")
+
+CombinedStatesX2 <- semi_join(CombinedStatesX,MainTable3)
