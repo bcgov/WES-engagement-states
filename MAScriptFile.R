@@ -97,5 +97,3 @@ saveRDS(MainTable3, "data/MainTable3.rds")
 saveRDS(CountOutputTable1, "data/CountOutputTable1.rds")
 saveRDS(long_MT3, "data/long_MT3.rds")
 saveRDS(CombinedStates1,"data/CombinedStates1.rds")
-
-CombinedStatesX2 <- semi_join(CombinedStatesX,MainTable3)
