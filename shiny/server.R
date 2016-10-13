@@ -43,8 +43,9 @@ function(input, output, session) {
     )
   })
   
-  output$engagement_plot <- renderPlot({
-    engagement_plot(engagement_data_agg())
+  output$plot <- renderggiraph({
+    ggiraph(code = {print(engagement_plot(engagement_data_agg()))},
+            width_svg = 15, height_svg = 10)
   })
   
   # -------- Tab 2 - Migration analysis ---------

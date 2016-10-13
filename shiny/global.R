@@ -3,6 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(DT)
 library(networkD3)
+library(ggiraph)
 
 # Define the possible engagement states
 STATES <- c("Engaged", "Dedicated", "Detached",
@@ -44,7 +45,7 @@ engagement_plot <- function(data) {
         fill = Engagement.State)) +
     geom_vline(xintercept = mean_commitment, col = "#555555") +
     geom_hline(yintercept = mean_satisfaction, col = "#555555") +
-    geom_point(aes(size = Percent), 
+    geom_point_interactive(aes(size = Percent, data_id = Percent, tooltip = Percent), 
                shape = 21, colour = "black") +
     scale_size_area(max_size = 50, guide = FALSE) + 
     xlim(0, 120) + ylim(0, 120) +
@@ -53,7 +54,7 @@ engagement_plot <- function(data) {
     guides(fill = guide_legend("Engagement State",
                                override.aes = list(size = 4))) +
     theme(legend.key = element_blank(), panel.grid.minor = element_blank(),
-          legend.key.height = unit(1.5, "line"))
+          legend.key.height = unit(1.5, "line"), legend.position = "right")
 }
 
 # Aggregated engagement data from multiple organizations into one summary
