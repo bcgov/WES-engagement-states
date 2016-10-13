@@ -25,7 +25,7 @@ fixedPage(
           "engagement_org", "Organization:",
           choices = org_names_list
         ),
-        plotOutput("engagement_plot", height = "500px"),
+        ggiraphOutput("engagement_plot"),
         DT::dataTableOutput("engagement_table")
       ),
       
