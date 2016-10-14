@@ -26,7 +26,8 @@ fixedPage(
           choices = org_names_list
         ),
         ggiraphOutput("engagement_plot"),
-        DT::dataTableOutput("engagement_table")
+        DT::dataTableOutput("engagement_table"),
+        downloadButton("engagement_data_download", "Export as CSV")
       ),
       
       # Tab 2 - Migration analysis
@@ -38,7 +39,8 @@ fixedPage(
           choices = org_names_list
         ),
         sankeyNetworkOutput("migration_plot"),
-        DT::dataTableOutput("migration_table")
+        DT::dataTableOutput("migration_table"),
+        downloadButton("migration_data_download", "Export as CSV")
       ),
       
       # Tab 3 - Description

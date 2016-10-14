@@ -27,10 +27,16 @@ function(input, output, session) {
     }
   })
   
-  output$engagement_table <- DT::renderDataTable({
-    data <- engagement_data() %>%
+  
+  # The engagement data in the format that should be shown to the user visually
+  engagement_data_view <- reactive({
+    engagement_data() %>%
       dplyr::select_("ORG", "Engagement.State", "Satisfaction", "Commitment",
                      "Employees", "Percent")
+  })
+  
+  output$engagement_table <- DT::renderDataTable({
+    data <- engagement_data_view()
     DT::datatable(
       data,
       rownames = FALSE,
@@ -49,6 +55,15 @@ function(input, output, session) {
     ggiraph(code = {print(engagement_plot(engagement_data_agg()))},
             width_svg = 15, height_svg = 10)
   })
+  
+  output$engagement_data_download <- downloadHandler(
+    filename = function() {
+      paste0("engagement_data_", input$engagement_org, ".csv")
+    },
+    content = function(file) {
+      write.csv(engagement_data_view(), file, row.names = FALSE, quote = FALSE)
+    }
+  )
   
   # -------- Tab 2 - Migration analysis ---------
   
@@ -76,8 +91,16 @@ function(input, output, session) {
   })
   
   output$migration_plot <- renderSankeyNetwork({
-    # Transform migration data to a more useful format for sankey diagrams
     data <- migration_data()
     migration_plot(data)
   })
+
+  output$migration_data_download <- downloadHandler(
+    filename = function() {
+      paste0("migration_data_", input$migration_org, ".csv")
+    },
+    content = function(file) {
+      write.csv(migration_data(), file, row.names = FALSE, quote = FALSE)
+    }
+  )
 }

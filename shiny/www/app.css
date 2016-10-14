@@ -95,3 +95,8 @@ body {
 #migration_table .dataTables_scrollBody {
   border: 0 none;
 }
+
+#engagement_data_download,
+#migration_data_download {
+  margin-top: 10px;
+}
