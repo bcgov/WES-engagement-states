@@ -43,7 +43,7 @@ function(input, output, session) {
     )
   })
   
-  output$plot <- renderggiraph({
+  output$engagement_plot <- renderggiraph({
     ggiraph(code = {print(engagement_plot(engagement_data_agg()))},
             width_svg = 15, height_svg = 10)
   })
