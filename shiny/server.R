@@ -1,3 +1,5 @@
+source("server-helpers.R")
+
 function(input, output, session) {
   
   # -------- Tab 1 - Engagement state ----------
@@ -53,7 +55,7 @@ function(input, output, session) {
   # Every time a new org is chosen, create MOCK migration data
   migration_data <- reactive({
     input$migration_org
-    migration_data_mock()
+    migration_data_mock
   }) 
   
   output$migration_table <- DT::renderDataTable({
