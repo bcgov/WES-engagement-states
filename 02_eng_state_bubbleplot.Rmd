@@ -144,6 +144,7 @@ eng_state_plot <-
   # points
   geom_point(aes(size = org_pct, stat="identity"), 
              shape = 21, colour = "black") +
+  geom_text(aes(label=paste(data$Percent,"%",sep=""))) +           
   scale_size_area(max_size = 50, guide=FALSE) + 
   scale_fill_manual(values = PLOT_COLS) + 
   # cross-hairs
