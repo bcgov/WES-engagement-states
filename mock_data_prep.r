@@ -5,6 +5,9 @@
 library(dplyr)
 library(foreign)
 
+# NOTE: the `haven` package might be a better solution for reading the SPSS data file
+# see https://blog.rstudio.org/2016/10/04/haven-1-0-0/
+
 # read the data
 
 setwd("C:/@data/GitHub/WES-engagement-states/sampledata")
