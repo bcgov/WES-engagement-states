@@ -4,7 +4,7 @@ long_MT3 <- readRDS("data/long_MT3.rds")
 CombinedStates1 <- readRDS("data/CombinedStates1.rds")
 
 library(shiny)
-library(dplyr)
+library(tidyverse)
 library(rmarkdown)
 library(DT) # using the more advanced Datatable package
 
@@ -41,7 +41,7 @@ server <- function(input, output) {
     content = function(file){
       file.copy(
         paste(
-          "C:/RProjects/MigrationAnalysis/report",input$Organization,".html",sep=""), file) # filename to find on the server
+          "reports/report",input$Organization,".html",sep=""), file) # filename to find on the server
       }
     )
   
@@ -64,7 +64,7 @@ server <- function(input, output) {
     content = function(file) {
       
       # Knit the document
-      rmarkdown::render("C:/RProjects/MigrationAnalysis/DynamicShinyReportTemplate.Rmd",output_file = file)
+      rmarkdown::render("DynamicShinyReportTemplate.Rmd",output_file = file)
       
     }
   )
