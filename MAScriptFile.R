@@ -1,8 +1,6 @@
 MainTable1 <- as.data.frame(read.csv("data/sampledata.csv"))
 
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+library(tidyverse)
 library(car)
 
 # Taking into account the split of workers between TICs and Finance since 2013
@@ -97,3 +95,4 @@ saveRDS(MainTable3, "data/MainTable3.rds")
 saveRDS(CountOutputTable1, "data/CountOutputTable1.rds")
 saveRDS(long_MT3, "data/long_MT3.rds")
 saveRDS(CombinedStates1,"data/CombinedStates1.rds")
+
