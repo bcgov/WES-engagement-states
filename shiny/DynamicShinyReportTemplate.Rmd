@@ -1,0 +1,77 @@
+---
+title: "BC Public Service Work Environment Survey 2015 Year-to-Year State of Engagement"
+output: html_document
+params:
+   Organization: 
+    label: "ORGID:"
+    value: GBH
+    input: select
+    choices: [GBH, HUM, LOON, OWL]
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+MockCombinedStates1 <- readRDS("data/MockCombinedStates1.rds") # load data
+
+IndexOrgName <- MockCombinedStates1 %>% filter(ORGID15==params$Organization) %>% select(ORGANIZATION15) %>% distinct()
+ 
+
+```
+
+## `r IndexOrgName`
+
+
+
+Engagement states are calculated using responses from the *BC Public Service Work Environment Survey*. The matrix below shows the four different engagement states employees may experience. Each state is determined by plotting commitment scores with overall satisfaction scores (combined job and organization satisfaction) according to the criteria in the matrix. For example, if employees are highly committed (have commitment scores of 60 points or more) but are not satisfied (satisfaction scores lower than 60 points), then they are considered to be unhappily dedicated.
+
+```{r, echo= FALSE, message= FALSE}
+library(pander)
+MatrixTest <-matrix(c("Happily detached",
+                      "Engaged", 
+                      "Disengaged", 
+                      "Unhappily dedicated"), ncol=2, byrow=TRUE)
+colnames(MatrixTest) <- c("Commitment < 60 points", "Commitment >= 60 points")
+rownames(MatrixTest) <- c("**Satisfaction >= 60 points**", "**Satisfaction < 60 points**")
+
+#pandoc.table(MatrixTest, style="rmarkdown")
+kable(MatrixTest, caption = "Table 1: Engagement State Matrix", align = c("c", "c"))
+```
+
+The purpose of this summary is to show how the state of engagement has changed in the organization between the 2013 and 2015 survey cycles
+
+### How has the state of engagement changed?
+
+The table below shows the overall number of employees in each state from both survey cycles.
+
+```{r, echo = FALSE}
+
+
+kable(MockCombinedStates1 %>% filter(ORGID15==params$Organization), caption = "Table 2: Organizational Engagement State", digits = 2, 
+      col.names = c("ID","Engagement", "Count 2013", "Count 2015", "Gain/Loss", "Change (%)", "Organization"), 
+      align = c("l","l","c","c","c","c","l"))
+
+# Creating a function to use for the paragraph below 
+
+NetChange <- function(variable) 
+{
+MockCombinedStates1 %>% filter(ORGID15==params$Organization) %>% filter(EngagementScore==variable) %>% select(NetGainOrLoss)
+}
+
+```
+
+
+Since 2013, the organization has had a net `r ifelse((NetChange("Engaged"))>0,"gain of", ifelse((NetChange("Engaged"))<0,"loss of","change of"))` **`r abs((NetChange("Engaged")))`** engaged employees and a net `r ifelse((NetChange("Disengaged"))>0,"gain of", ifelse((NetChange("Disengaged"))<0,"loss of","change of"))` **`r abs((NetChange("Disengaged")))`** disengaged employees.
+
+What characterizes these changes?
+Four types of migration describe the changes in the overall count and percentage of employees in each state from 2013 to 2015
+
+1. **Changes in continuing respondents**: perceptions of those who answered in both 2013 & 2015
+2. **Changes in BC Public Service population**: employees hired into the BC Public Service since 2013 or departed from the BC Public Service after 2013
+3. **Changes in organization population**: employees who transferred from another organization into Public Safety and Solicitor General since 2013 or transferred out of Public Safety and Solicitor General and into another organization after 2015
+4. **Changes in sample**: single-year respondents (answered in 2013 or 2015).
+
+
