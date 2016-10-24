@@ -26,6 +26,7 @@ fixedPage(
           choices = org_names_list
         ),
         ggiraphOutput("engagement_plot"),
+        downloadButton("report", "Generate report"),
         DT::dataTableOutput("engagement_table"),
         downloadButton("engagement_data_download", "Export as CSV")
       ),

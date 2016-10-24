@@ -27,6 +27,22 @@ function(input, output, session) {
     }
   })
   
+  # Knit and download a report based on the selected organization  
+  output$report <- downloadHandler(
+    filename = "BC-WES-report.html",
+    content = function(file) {
+      tmpFile <- file.path(tempdir(), "BC-WES-report.Rmd")
+      file.copy("DynamicShinyReportTemplate.Rmd", tmpFile, overwrite = TRUE)
+      
+      params <- list(Organization = input$engagement_org,
+                     wd = getwd())
+
+      rmarkdown::render(tmpFile, output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv())
+      )
+    }
+  )
   
   # The engagement data in the format that should be shown to the user visually
   engagement_data_view <- reactive({
