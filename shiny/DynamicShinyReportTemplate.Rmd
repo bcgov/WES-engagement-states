@@ -6,7 +6,7 @@ params:
     label: "ORGID:"
     value: GBH
     input: select
-    choices: [GBH, HUM, LOON, OWL]
+    choices: [GBH, HUM, LOON, OOWL]
   wd:
     label: "Working directory:"
     value: "."
