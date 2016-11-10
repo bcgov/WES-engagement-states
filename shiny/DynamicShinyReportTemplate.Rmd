@@ -3,10 +3,10 @@ title: "BC Public Service Work Environment Survey 2015 Year-to-Year State of Eng
 output: html_document
 params:
   Organization: 
-    label: "ORGID"
-    value: GBH
+    label: "ORGID15"
+    value: AG
     input: select
-    choices: [GBH, HUM, LOON, OWL]
+    choices: [AG, AGRI, BCPSA, EBC, ENV, FIN, FLNR, GCPE, NGD, PGT, PO, PSSG, SDSI, TICS]
 ---
 
 ```{r setup, include=FALSE}
@@ -15,10 +15,10 @@ library(tidyverse)
 
 knitr::opts_chunk$set(echo = TRUE)
 
-dataFile <- file.path("data", "MockCombinedStates1.rds")
-MockCombinedStates1 <- readRDS(dataFile) # load data
+dataFile <- file.path("data", "combinedStates.rds")
+combinedStates <- readRDS(dataFile) # load data
 
-IndexOrgName <- MockCombinedStates1 %>% filter(ORGID15==params$Organization) %>% select(ORGANIZATION15) %>% distinct()
+IndexOrgName <- combinedStates %>% filter(ORGID15==params$Organization) %>% select(ORGANIZATION15) %>% distinct()
  
 
 ```
@@ -51,7 +51,7 @@ The table below shows the overall number of employees in each state from both su
 ```{r, echo = FALSE}
 
 
-kable(MockCombinedStates1 %>% filter(ORGID15==params$Organization), caption = "Table 2: Organizational Engagement State", digits = 2, 
+kable(combinedStates %>% filter(ORGID15==params$Organization), caption = "Table 2: Organizational Engagement State", digits = 2, 
       col.names = c("ID","Engagement", "Count 2013", "Count 2015", "Gain/Loss", "Change (%)", "Organization"), 
       align = c("l","l","c","c","c","c","l"))
 
@@ -59,7 +59,7 @@ kable(MockCombinedStates1 %>% filter(ORGID15==params$Organization), caption = "T
 
 NetChange <- function(variable) 
 {
-MockCombinedStates1 %>% filter(ORGID15==params$Organization) %>% filter(EngagementScore==variable) %>% select(NetGainOrLoss)
+combinedStates %>% filter(ORGID15==params$Organization) %>% filter(EngagementScore==variable) %>% select(NetGainOrLoss)
 }
 
 ```
