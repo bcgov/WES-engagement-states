@@ -19,23 +19,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #--------------- Set up the data for the RMD file ---------------
 
-finalMockData <- read_csv("data/finalMockData.csv", 
+WES_data <- read_csv("data/finalMockData.csv", 
                           col_types = cols(COMMITMENT13 = col_number(), 
                                            COMMITMENT15 = col_number(),
                                            SAT13 = col_number(), 
                                            SAT15 = col_number()))
 
 # Very basic input error checking
-if (!params$Organization %in% unique(finalMockData$ORGID15)) {
+if (!params$Organization %in% unique(WES_data$ORGID15)) {
   stop(paste0("The organization you provided is not in the data: ",
               params$Organization))
 }
 
-finalMockData$ENGSTATE13 <- recode(finalMockData$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
-finalMockData$ENGSTATE15 <- recode(finalMockData$ENGSTATE15,"c('Engaged','Moderately Engaged')='Engaged'")
+WES_data$ENGSTATE13 <- recode(WES_data$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
+WES_data$ENGSTATE15 <- recode(WES_data$ENGSTATE15,"c('Engaged','Moderately Engaged')='Engaged'")
 
-finalMockData$ENGSTATE13 <- recode(finalMockData$ENGSTATE13,"c('Disengaged','Minimally Engaged')='Disengaged'")
-finalMockData$ENGSTATE15 <- recode(finalMockData$ENGSTATE15,"c('Disengaged','Minimally Engaged')='Disengaged'")
+WES_data$ENGSTATE13 <- recode(WES_data$ENGSTATE13,"c('Disengaged','Minimally Engaged')='Disengaged'")
+WES_data$ENGSTATE15 <- recode(WES_data$ENGSTATE15,"c('Disengaged','Minimally Engaged')='Disengaged'")
 
 
 # Start the process to turn the data into what is needed to create a combined dataset
@@ -43,7 +43,7 @@ finalMockData$ENGSTATE15 <- recode(finalMockData$ENGSTATE15,"c('Disengaged','Min
 ## Turn "Wide" data (where time is delineated by different variables) into "Long" data (where there is a variable
 ### for time called 'Year') 
 
-longData <- finalMockData %>% select(ORGID13,ORGANIZATION13,ORGID15,ORGANIZATION15, ENGSTATE13, ENGSTATE15) %>% 
+longData <- WES_data %>% select(ORGID13,ORGANIZATION13,ORGID15,ORGANIZATION15, ENGSTATE13, ENGSTATE15) %>% 
   gather(Year, EngagementScore, ENGSTATE13:ENGSTATE15)
 
 longData <- longData %>% mutate(Yr = ifelse(Year == "ENGSTATE13", "2013", "2015" ))
