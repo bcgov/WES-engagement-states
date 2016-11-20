@@ -67,8 +67,8 @@ function(input, output, session) {
   })
   
   output$engagement_plot <- renderggiraph({
-    ggiraph(code = {print(engagement_plot(engagement_data_agg()))},
-            width_svg = 15, height_svg = 10)
+    p <- engagement_plot(engagement_data_agg())
+    ggiraph(code = print(p), width_svg = 15, height_svg = 10)
   })
   
   output$engagement_data_download <- downloadHandler(
