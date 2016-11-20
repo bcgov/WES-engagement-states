@@ -25,6 +25,12 @@ finalMockData <- read_csv("data/finalMockData.csv",
                                            SAT13 = col_number(), 
                                            SAT15 = col_number()))
 
+# Very basic input error checking
+if (!params$Organization %in% unique(finalMockData$ORGID15)) {
+  stop(paste0("The organization you provided is not in the data: ",
+              params$Organization))
+}
+
 finalMockData$ENGSTATE13 <- recode(finalMockData$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
 finalMockData$ENGSTATE15 <- recode(finalMockData$ENGSTATE15,"c('Engaged','Moderately Engaged')='Engaged'")
 
