@@ -21,7 +21,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 finalMockData <- read_csv("data/finalMockData.csv", 
                           col_types = cols(COMMITMENT13 = col_number(), 
-                                           COMMITMENT15 = col_number(), SAT13 = col_number(), 
+                                           COMMITMENT15 = col_number(),
+                                           SAT13 = col_number(), 
                                            SAT15 = col_number()))
 
 finalMockData$ENGSTATE13 <- recode(finalMockData$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
