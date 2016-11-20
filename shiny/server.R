@@ -9,16 +9,16 @@ function(input, output, session) {
     if (input$engagement_org == "all") {
       eng_state_data
     } else {
-      eng_state_data %>%
-        filter(ORGID == input$engagement_org)
+      dplyr::filter(eng_state_data, Org.ID == input$engagement_org)
     }
   })
   
   # Get aggregated engagement data
   engagement_data_agg <- eventReactive(engagement_data(), {
-    data <- engagement_data() %>%
-      dplyr::select_("Engagement.State", "Satisfaction", "Commitment",
-                     "Employees", "Percent")
+    data <- dplyr::select_(
+      engagement_data(),
+      "Engagement.State", "Satisfaction", "Commitment",
+      "Employees", "Percent")
     
     if (input$engagement_org != "all") {
       data
@@ -46,7 +46,7 @@ function(input, output, session) {
   # The engagement data in the format that should be shown to the user visually
   engagement_data_view <- reactive({
     engagement_data() %>%
-      dplyr::select_("ORG", "Engagement.State", "Satisfaction", "Commitment",
+      dplyr::select_("Org", "Engagement.State", "Satisfaction", "Commitment",
                      "Employees", "Percent")
   })
   
