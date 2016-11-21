@@ -30,9 +30,11 @@ WES_data$ORGANIZATION13 <- as.factor(WES_data$ORGANIZATION13)
 WES_data$ORGANIZATION15 <- as.factor(WES_data$ORGANIZATION15)
 
 # Extract a mapping with all organization ids -> names
-org_names_list <-
-  c("All" = "all",
-    setNames(levels(WES_data$ORGID15), levels(WES_data$ORGANIZATION15)))
+org_names_list <- unique(as.character(WES_data$ORGID15))
+names(org_names_list) <- unique(as.character(WES_data$ORGANIZATION15))
+org_names_list <- org_names_list[!is.na(org_names_list)]
+org_names_list <- sort(org_names_list)
+org_names_list <- c("All" = "all", org_names_list)
 
 # ------------ Set up data for the engagement state bubble plot ---------
 
