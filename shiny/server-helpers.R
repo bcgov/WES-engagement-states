@@ -12,9 +12,7 @@ engagement_plot <- function(data) {
         fill = Engagement.State)) +
     geom_vline(xintercept = mean_commitment, col = "#555555") +
     geom_hline(yintercept = mean_satisfaction, col = "#555555") +
-    geom_point_interactive(aes(size = Percent, data_id = Percent,
-                               tooltip = Percent), 
-                           shape = 21, colour = "black") +
+    geom_point(aes(size = Percent), shape = 21, colour = "black") +
     scale_size_area(max_size = 50, guide = FALSE) + 
     xlim(0, 120) + ylim(0, 120) +
     scale_fill_manual(values = PLOT_COLS) +

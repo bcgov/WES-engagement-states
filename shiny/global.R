@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 library(DT)
 library(networkD3)
-library(ggiraph)
+#library(ggiraph)
 library(readr)
 
 ENG_STATES_FULL <- c(

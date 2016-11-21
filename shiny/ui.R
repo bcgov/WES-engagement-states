@@ -19,13 +19,13 @@ fixedPage(
       
       # Tab 1 - Engagement state
       tabPanel(
-        paste0("Engagement state"),
+        "Engagement State",
         value = "tab_engagement",
         selectInput(
           "engagement_org", "Organization:",
           choices = org_names_list
         ),
-        ggiraphOutput("engagement_plot"),
+        plotOutput("engagement_plot"),
         downloadButton("report", "Generate report"),
         DT::dataTableOutput("engagement_table"),
         downloadButton("engagement_data_download", "Export as CSV")
@@ -33,7 +33,7 @@ fixedPage(
       
       # Tab 2 - Migration analysis
       tabPanel(
-        sprintf("Migration analysis"),
+        "Migration Analysis",
         value = "tab_migration",
         selectInput(
           "migration_org", "Organization:",
