@@ -1,5 +1,36 @@
-# Constants to use in the code
+# Consistent colour scheme to use in plots
 PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
+
+# Transform the full data to a dataset useful for a migration sankey plot
+get_migration_data <- function(org) {
+  if (org == "all") {
+    migration_data <- migration_data_full
+    migration_data$ENGSTATE13[is.na(migration_data$ORGID13)] <- "N/A"
+    migration_data$ENGSTATE15[is.na(migration_data$ORGID15)] <- "N/A"
+  } else {
+    migration_data <- dplyr::filter(migration_data_full,
+                                    ORGID15 == org | ORGID13 == org)
+    idx_na13 <- migration_data$ORGID13 != org | is.na(migration_data$ORGID13)
+    idx_na15 <- migration_data$ORGID15 != org | is.na(migration_data$ORGID15)
+    migration_data$ENGSTATE13[idx_na13] <- "N/A"
+    migration_data$ENGSTATE15[idx_na15] <- "N/A"
+  }
+
+  migration_data$ENGSTATE13[is.na(migration_data$ENGSTATE13)] <- "Incomplete"
+  migration_data$ENGSTATE15[is.na(migration_data$ENGSTATE15)] <- "Incomplete"
+  
+  migration_data <- migration_data %>%
+    dplyr::group_by(ENGSTATE13, ENGSTATE15) %>%
+    dplyr::tally() %>%
+    dplyr::ungroup() %>%
+    dplyr::rename(
+      Engagement.2013 = ENGSTATE13,
+      Engagement.2015 = ENGSTATE15,
+      Employees = n
+    )  
+  
+  migration_data
+}
 
 # Code for the engagement plot
 engagement_plot <- function(data) {
@@ -39,19 +70,19 @@ engagement_agg <- function(data) {
 # Code for migration Sankey plot
 migration_plot <- function(data) {
   data <- as.data.frame(data)
-  states_df <- data.frame(state = c(levels(data$engagement_past),
-                                    levels(data$engagement_current)))
+  states_df <- data.frame(state = c(levels(data$Engagement.2013),
+                                    levels(data$Engagement.2015)))
   
-  data$engagement_past <- as.integer(data$engagement_past) - 1
-  data$engagement_current <- as.integer(data$engagement_current) - 1 +
-    length(unique(data$engagement_past))
+  data$Engagement.2013 <- as.integer(data$Engagement.2013) - 1
+  data$Engagement.2015 <- as.integer(data$Engagement.2015) - 1 +
+    length(unique(data$Engagement.2013))
   
   colours_js <- paste0('"', paste(PLOT_COLS, collapse = '","'), '"')
   colours_js_d3 <- sprintf('d3.scale.ordinal().range([%s])', colours_js)
   
   sankeyNetwork(Links = data, Nodes = states_df,
-                Source = 'engagement_past', Target = 'engagement_current',
-                Value = 'num',
+                Source = 'Engagement.2013', Target = 'Engagement.2015',
+                Value = 'Employees',
                 NodeID = 'state', fontSize = 22, fontFamily = "Arial",
                 nodeWidth = "20", nodePadding = "10", iterations = 0,
                 NodeGroup = 'state', colourScale = JS(colours_js_d3))

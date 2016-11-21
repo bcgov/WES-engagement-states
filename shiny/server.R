@@ -5,7 +5,7 @@ function(input, output, session) {
   # -------- Tab 1 - Engagement state ----------
   
   # Get engagement data filtered by chosen organization
-  engagement_data <- eventReactive(input$engagement_org, {
+  engagement_data <- reactive({
     if (input$engagement_org == "all") {
       eng_state_data
     } else {
@@ -85,28 +85,8 @@ function(input, output, session) {
   
   # Every time a new org is chosen, create MOCK migration data
   migration_data <- reactive({
-    org <- input$migration_org
-    
-    migration_data <- dplyr::filter(migration_data_full,
-                                    ORGID15 == org | ORGID13 == org)
-    idx_na13 <- migration_data$ORGID13 != org | is.na(migration_data$ORGID13)
-    idx_na15 <- migration_data$ORGID15 != org | is.na(migration_data$ORGID15)
-    migration_data$ENGSTATE13[idx_na13] <- "N/A"
-    migration_data$ENGSTATE15[idx_na15] <- "N/A"
-    migration_data$ENGSTATE13[is.na(migration_data$ENGSTATE13)] <- "Incomplete"
-    migration_data$ENGSTATE15[is.na(migration_data$ENGSTATE15)] <- "Incomplete"
-    
-    migration_data <- migration_data %>%
-      dplyr::group_by(ENGSTATE13, ENGSTATE15) %>%
-      dplyr::tally() %>%
-      dplyr::ungroup() %>%
-      dplyr::rename(
-        engagement_past = ENGSTATE13,
-        engagement_current = ENGSTATE15,
-        num = n
-      )
-    migration_data
-  }) 
+    get_migration_data(input$migration_org)
+   }) 
   
   output$migration_table <- DT::renderDataTable({
     data <- migration_data()
