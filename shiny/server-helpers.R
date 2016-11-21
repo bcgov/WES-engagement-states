@@ -36,20 +36,16 @@ engagement_agg <- function(data) {
     arrange(Engagement.State)
 }
 
-# Create MOCK migration data
-generate_mock_migration_data <- function() {
-  expand.grid(engagement_past = STATES, engagement_current = STATES,
-              KEEP.OUT.ATTRS = FALSE) %>%
-    arrange(engagement_past, engagement_current) %>%
-    mutate(num = round(runif(nrow(.), 10, 250)))
-}
-
 # Code for migration Sankey plot
 migration_plot <- function(data) {
+  data <- as.data.frame(data)
+  states_df <- data.frame(state = c(levels(data$engagement_past),
+                                    levels(data$engagement_current)))
+  
   data$engagement_past <- as.integer(data$engagement_past) - 1
   data$engagement_current <- as.integer(data$engagement_current) - 1 +
-    length(STATES)
-  states_df <- data.frame(state = c(STATES, STATES))
+    length(unique(data$engagement_past))
+  
   colours_js <- paste0('"', paste(PLOT_COLS, collapse = '","'), '"')
   colours_js_d3 <- sprintf('d3.scale.ordinal().range([%s])', colours_js)
   

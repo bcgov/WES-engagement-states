@@ -8,12 +8,9 @@ library(networkD3)
 library(readr)
 
 ENG_STATES_FULL <- c(
-  "Disengaged", "Minimally Engaged", "Happily Detached",
-  "Unhappily Dedicated", "Moderately Engaged", "Engaged"
+  "Engaged", "Moderately Engaged", "Unhappily Dedicated",
+  "Happily Detached", "Minimally Engaged", "Disengaged"
 )
-
-STATES <- c("Engaged", "Dedicated", "Detached",
-            "Disengaged", "Incomplete", "N/A")
 
 # ---------------  Read and pre process the full data --------------
 
@@ -63,4 +60,25 @@ eng_state_data <- WES_data %>%
 
 
 # -------------- Set up the migration data ---------------
-migration_data_mock <- read.csv("data/migration_data.csv")
+
+migration_data_full <- dplyr::select_(WES_data,
+                                      "ORGID13", "ENGSTATE13",
+                                      "ORGID15", "ENGSTATE15")
+migration_data_full$ENGSTATE13 <- dplyr::recode_factor(
+  migration_data_full$ENGSTATE13,
+  "Moderately Engaged" = "Engaged",
+  "Unhappily Dedicated" = "Dedicated",
+  "Happily Detached" = "Detached",
+  "Minimally Engaged" = "Disengaged"
+)
+migration_data_full$ENGSTATE15 <- dplyr::recode_factor(
+  migration_data_full$ENGSTATE15,
+  "Moderately Engaged" = "Engaged",
+  "Unhappily Dedicated" = "Dedicated",
+  "Happily Detached" = "Detached",
+  "Minimally Engaged" = "Disengaged"
+)
+levels(migration_data_full$ENGSTATE13) <- c(
+  levels(migration_data_full$ENGSTATE13), "Incomplete", "N/A")
+levels(migration_data_full$ENGSTATE15) <- c(
+  levels(migration_data_full$ENGSTATE15), "Incomplete", "N/A")
