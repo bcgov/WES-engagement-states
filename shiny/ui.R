@@ -23,7 +23,8 @@ fixedPage(
         value = "tab_engagement",
         selectInput(
           "engagement_org", "Organization:",
-          choices = org_names_list
+          choices = org_names_list,
+          width = "400px"
         ),
         plotOutput("engagement_plot"),
         downloadButton("report", "Generate report"),
@@ -37,7 +38,8 @@ fixedPage(
         value = "tab_migration",
         selectInput(
           "migration_org", "Organization:",
-          choices = org_names_list
+          choices = org_names_list,
+          width = "400px"
         ),
         sankeyNetworkOutput("migration_plot"),
         DT::dataTableOutput("migration_table"),
