@@ -4,9 +4,9 @@ output: html_document
 params:
   Organization: 
     label: "ORGID15"
-    value: All
+    value: all
     input: select
-    choices: [All, AG, AGRI, BCPSA, EBC, ENV, FIN, FLNR, GCPE, NGD, PGT, PO, PSSG, SDSI, TICS]
+    choices: [all, AG, AGRI, BCPSA, EBC, ENV, FIN, FLNR, GCPE, NGD, PGT, PO, PSSG, SDSI, TICS]
 ---
 
 ```{r setup, include=FALSE}
@@ -25,11 +25,12 @@ WES_data <- read_csv("data/finalMockData.csv",
                                            SAT13 = col_number(), 
                                            SAT15 = col_number()))
 
-# # Very basic input error checking
-# if (!params$Organization %in% unique(WES_data$ORGID15)) {
-#   stop(paste0("The organization you provided is not in the data: ",
-#               params$Organization))
-# }
+# Very basic input error checking
+if (params$Organization != "all" &&
+    !params$Organization %in% unique(WES_data$ORGID15)) {
+  stop(paste0("The organization you provided is not in the data: ",
+              params$Organization))
+}
 
 WES_data$ENGSTATE13 <- recode(WES_data$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
 WES_data$ENGSTATE15 <- recode(WES_data$ENGSTATE15,"c('Engaged','Moderately Engaged')='Engaged'")
@@ -69,7 +70,7 @@ for (i in unique(longData$ORGID15))
            mutate(PercentageChange = ((Count2015-Count2013)/(Count2013))* 100))
 }
 
-All <- longData %>%
+all <- longData %>%
   group_by(EngagementScore) %>% 
   summarize(Count2013 = sum(Yr=="2013" & !is.na(EngagementScore)), 
                      Count2015 = sum(Yr=="2015" & !is.na(EngagementScore))) %>% 
@@ -80,13 +81,13 @@ All <- longData %>%
 
 ### Uncomment this when plugging in real data, and comment the proceeding block of code instead
 
-# combinedStates <- bind_rows(All=All,AG=AG,AGRI=AGRI,ARR=ARR,AVED=AVED,BCPSA=BCPSA,
+# combinedStates <- bind_rows(all=all,AG=AG,AGRI=AGRI,ARR=ARR,AVED=AVED,BCPSA=BCPSA,
 #                             CFD=CFD,CSCD=CSCD,EAO=EAO,EBC=EBC,EDUC=EDUC,EM=EM,
 #                             EMBC=EMBC,ENV=ENV,FIN=FIN,FLNR=FLNR,GCPE=GCPE,HLTH=HLTH,
 #                             JTSTL=JTSTL,MIT=MIT,NGD=NGD,OMB=OMB,PGT=PGT,PO=PO,
 #                             PSSG=PSSG,SBRT=SBRT,SDSI=SDSI,TICS=TICS,TRAN=TRAN, .id="source")
 
-combinedStates <- bind_rows(All=All,AG=AG,AGRI=AGRI,BCPSA=BCPSA,
+combinedStates <- bind_rows(all=all,AG=AG,AGRI=AGRI,BCPSA=BCPSA,
                             EBC=EBC,ENV=ENV,FIN=FIN,FLNR=FLNR,GCPE=GCPE,NGD=NGD,
                             PGT=PGT,PO=PO,PSSG=PSSG,SDSI=SDSI,TICS=TICS, .id="source")
 
@@ -96,7 +97,7 @@ combinedStates <- combinedStates %>% filter(!is.na(EngagementScore))
 combinedStates <- rename(combinedStates, ORGID15 = source)
 
 OrgNameID <- longData %>% filter(!is.na(ORGID15)) %>% group_by(ORGID15,ORGANIZATION15) %>% summarise()
-OrgNameID <- rbind(as.data.frame(OrgNameID), c("All","All"))
+OrgNameID <- rbind(as.data.frame(OrgNameID), c("all","all"))
 
 combinedStates <- inner_join(combinedStates, OrgNameID %>% select(ORGANIZATION15, ORGID15), by = "ORGID15")
 combinedStates <- combinedStates %>% mutate(PercentageChange = round(PercentageChange,digits=2))
