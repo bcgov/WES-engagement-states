@@ -54,8 +54,10 @@ longData <- longData %>% mutate(Yr = ifelse(Year == "ENGSTATE13", "2013", "2015"
 longData <- longData %>% mutate(EngagementScore = ifelse(Yr=="2013" & !is.na(ORGID13) & is.na(EngagementScore), "Non Respondents",
                                                          ifelse(Yr=="2015" & !is.na(ORGID15) & is.na(EngagementScore), "Non Respondents", EngagementScore)))
 
-longData$EngagementScore <- factor(longData$EngagementScore)
-levels(longData$EngagementScore) <- c("Engaged", "Happily Detached", "Unhappily Dedicated", "Disengaged", "Non Respondents")
+longData$EngagementScore <- factor(longData$EngagementScore,
+                                   levels=
+                                     c("Engaged", "Happily Detached", "Unhappily Dedicated", "Disengaged", "Non Respondents"))
+
 
 ## Loop to generate engagement state tables for all ministries:
 
