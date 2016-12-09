@@ -89,7 +89,7 @@ CombinedStates1 <- inner_join(CombinedStates, OrgNameID %>% select(ORGANIZATION1
 CombinedStates1 <- CombinedStates1 %>% mutate(PercentageChange = round(PercentageChange,digits=2))
 
 
-# Save relevant dataframes as external rds files
+# Save relevant dataframes as external rds files.
 
 saveRDS(MainTable3, "data/MainTable3.rds")
 saveRDS(CountOutputTable1, "data/CountOutputTable1.rds")
