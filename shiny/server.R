@@ -54,6 +54,7 @@ function(input, output, session) {
       dom <- "tlp"
     } else {
       dom <- "t"
+      data <- dplyr::select(data, -Organization)
     }
     
     data$Employees.2013 <- format(data$Employees.2013, big.mark = ",")
