@@ -21,36 +21,45 @@ fixedPage(
       tabPanel(
         "Engagement State",
         value = "tab_engagement",
-        selectInput(
-          "engagement_org", "Organization:",
-          choices = org_names_list,
-          width = "400px"
-        ),
-        plotOutput("engagement_plot"),
-        downloadButton("report", "Generate report"),
-        DT::dataTableOutput("engagement_table"),
-        downloadButton("engagement_data_download", "Export as CSV")
+        div(
+          id ="tab_engagement",
+          selectInput(
+            "engagement_org", "Organization:",
+            choices = org_names_list,
+            width = "400px"
+          ),
+          plotOutput("engagement_plot"),
+          downloadButton("report", "Generate report"),
+          DT::dataTableOutput("engagement_table"),
+          downloadButton("engagement_data_download", "Export as CSV")
+        )
       ),
       
       # Tab 2 - Migration analysis
       tabPanel(
         "Migration Analysis",
         value = "tab_migration",
-        selectInput(
-          "migration_org", "Organization:",
-          choices = org_names_list,
-          width = "400px"
-        ),
-        sankeyNetworkOutput("migration_plot"),
-        DT::dataTableOutput("migration_table"),
-        downloadButton("migration_data_download", "Export as CSV")
+        div(
+          id = "tab_migration",
+          selectInput(
+            "migration_org", "Organization:",
+            choices = org_names_list,
+            width = "400px"
+          ),
+          sankeyNetworkOutput("migration_plot"),
+          DT::dataTableOutput("migration_table"),
+          downloadButton("migration_data_download", "Export as CSV")
+        )
       ),
       
       # Tab 3 - Description
       tabPanel(
         "Methods",
         value = "tab_info",
-        "[TODO]"
+        div(
+          id = "tab_info",
+          source(file.path("ui-tab-about.R"), local = TRUE)$value
+        )
       )
     )
   ))

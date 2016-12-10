@@ -100,3 +100,23 @@ body {
 #migration_data_download {
   margin-top: 10px;
 }
+
+#tab_info {
+  font-size: 16px;
+}
+
+#tab_info h2 {
+  font-weight: bold;
+}
+
+#tab_info tbody tr td:first-child {
+  font-weight: bold;
+  text-align: right;
+  padding-right: 15px;
+  width: 200px;
+}
+
+#tab_info tbody tr td {
+  padding-bottom: 5px;
+  vertical-align: top;
+}
