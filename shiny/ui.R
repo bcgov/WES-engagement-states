@@ -58,7 +58,7 @@ fixedPage(
       
       # Tab 2 - Migration analysis
       tabPanel(
-        "Migration Analysis",
+        "Migration Flow",
         value = "tab_migration",
         div(
           id = "tab_migration",
