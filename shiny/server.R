@@ -92,7 +92,7 @@ function(input, output, session) {
       paste0("engagement_data_", input$engagement_org, ".csv")
     },
     content = function(file) {
-      write.csv(engagement_data_view(), file, row.names = FALSE, quote = FALSE)
+      write.csv(engagement_data_view(), file, row.names = FALSE, quote = TRUE)
     }
   )
   
@@ -134,7 +134,7 @@ function(input, output, session) {
       paste0("migration_data_", input$migration_org, ".csv")
     },
     content = function(file) {
-      write.csv(migration_data(), file, row.names = FALSE, quote = FALSE)
+      write.csv(migration_data(), file, row.names = FALSE, quote = TRUE)
     }
   )
 }
