@@ -15,7 +15,7 @@ function(input, output, session) {
   
   # Get aggregated engagement data
   engagement_data_agg <- eventReactive(engagement_data(), {
-    data <- dplyr::select(engagement_data(), -Org.ID, -Org)
+    data <- dplyr::select(engagement_data(), -Org.ID, -Organization)
 
     if (input$engagement_org != "all") {
       data

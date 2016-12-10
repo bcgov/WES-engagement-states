@@ -1,6 +1,3 @@
-# Consistent colour scheme to use in plots
-PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
-
 # Transform the full data to a dataset useful for a migration sankey plot
 get_migration_data <- function(org) {
   if (org == "all") {

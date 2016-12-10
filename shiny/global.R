@@ -7,6 +7,9 @@ library(networkD3)
 #library(ggiraph)
 library(readr)
 
+# Consistent colour scheme to use in plots
+PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
+
 ENG_STATES_FULL <- c(
   "Engaged", "Moderately Engaged", "Unhappily Dedicated",
   "Happily Detached", "Minimally Engaged", "Disengaged"
@@ -54,7 +57,7 @@ eng_state_data_13 <- WES_data %>%
   dplyr::ungroup() %>%
   dplyr::arrange(ORGANIZATION13, ENGSTATE13) %>%
   dplyr::rename(
-    Org = ORGANIZATION13,
+    Organization = ORGANIZATION13,
     Org.ID = ORGID13,
     Engagement.State = ENGSTATE13,
     Commitment = COMMITMENT13,
@@ -75,7 +78,7 @@ eng_state_data_15 <- WES_data %>%
   dplyr::ungroup() %>%
   dplyr::arrange(ORGANIZATION15, ENGSTATE15) %>%
   dplyr::rename(
-    Org = ORGANIZATION15,
+    Organization = ORGANIZATION15,
     Org.ID = ORGID15,
     Engagement.State = ENGSTATE15,
     Commitment = COMMITMENT15,
@@ -87,8 +90,8 @@ eng_state_data <- suppressWarnings(
     by = c("Org.ID", "Engagement.State"),
     suffix = c(".13", ".15")
   )) %>%
-  dplyr::select(-Org.15) %>%
-  dplyr::rename(Org = Org.13)
+  dplyr::select(-Organization.15) %>%
+  dplyr::rename(Organization = Organization.13)
 
 # -------------- Set up the migration data ---------------
 
