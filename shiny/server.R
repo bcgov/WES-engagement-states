@@ -56,6 +56,9 @@ function(input, output, session) {
       dom <- "t"
     }
     
+    data$Employees.2013 <- format(data$Employees.2013, big.mark = ",")
+    data$Employees.2015 <- format(data$Employees.2015, big.mark = ",")
+    
     DT::datatable(
       data,
       rownames = FALSE,
@@ -68,7 +71,8 @@ function(input, output, session) {
         dom = dom,
         scrollCollapse = TRUE
       )
-    )
+    ) %>%
+    formatString(columns = c("Percent.2013", "Percent.2015"), suffix = "%")
   })
   
   output$engagement_plot_13 <- renderPlot({
@@ -100,6 +104,8 @@ function(input, output, session) {
   
   output$migration_table <- DT::renderDataTable({
     data <- migration_data()
+    
+    data$Employees <- format(data$Employees, big.mark = ",")
     
     DT::datatable(
       data,
