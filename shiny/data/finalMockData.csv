@@ -23473,7 +23473,6 @@
 "GCPE","Government Communications and Public Engagement","Unhappily Dedicated",75,50,"GCPE","Government Communications and Public Engagement","Minimally Engaged",50,37.5
 "EBC","Elections BC","Moderately Engaged",62.5,87.5,"EBC","Elections BC","Moderately Engaged",75,62.5
 "PGT","Public Guardian and Trustee","Disengaged",12.5,0," "," ",NA,NA,NA
-"OIPC","Office of the Information and Privacy Commissioner","Disengaged",25,37.5,"GCPE","Government Communications and Public Engagement","Moderately Engaged",62.5,100
 "BCPSA","BC Public Service Agency","Engaged",75,75," "," ",NA,NA,NA
 "FLNR","Forests, Lands and Natural Resource Operations","Engaged",87.5,75,"FLNR","Forests, Lands and Natural Resource Operations","Unhappily Dedicated",87.5,50
 "PSSG","Public Safety and Solicitor General",NA,NA,NA,"PSSG","Public Safety and Solicitor General","Happily Detached",50,62.5
@@ -24540,7 +24539,6 @@
 "AGRI","Agriculture","Engaged",87.5,75,"AG","Attorney General","Engaged",100,75
 "PO","Office of the Premier","Engaged",100,87.5,"PO","Office of the Premier","Engaged",100,87.5
 "PSSG","Public Safety and Solicitor General",NA,NA,NA,"PSSG","Public Safety and Solicitor General",NA,NA,NA
-"OIPC","Office of the Information and Privacy Commissioner","Minimally Engaged",50,50,"PSSG","Public Safety and Solicitor General","Engaged",87.5,87.5
 "GCPE","Government Communications and Public Engagement","Minimally Engaged",37.5,50," "," ",NA,NA,NA
 "EBC","Elections BC","Minimally Engaged",37.5,50,"EBC","Elections BC","Minimally Engaged",25,50
 "PGT","Public Guardian and Trustee",NA,NA,87.5," "," ",NA,NA,NA
