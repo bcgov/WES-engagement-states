@@ -25,7 +25,7 @@ function(input, output, session) {
   })
   
   # Knit and download a report based on the selected organization  
-  output$report <- downloadHandler(
+  output$btn_report <- downloadHandler(
     filename = "BC-WES-report.html",
     content = function(file) {
       tmpFile <- tempfile(tmpdir = ".", fileext = ".html")
@@ -48,6 +48,13 @@ function(input, output, session) {
   
   output$engagement_table <- DT::renderDataTable({
     data <- engagement_data_view()
+    
+    if (input$engagement_org == "all") {
+      dom <- "tlp"
+    } else {
+      dom <- "t"
+    }
+    
     DT::datatable(
       data,
       rownames = FALSE,
@@ -56,7 +63,7 @@ function(input, output, session) {
       options = list(
         searching = FALSE, paging = TRUE,
         scrollX = TRUE, scrollY = FALSE,
-        dom = 'tlp',
+        dom = dom,
         scrollCollapse = TRUE
       )
     )
@@ -98,9 +105,10 @@ function(input, output, session) {
       selection = 'none',
       class = 'stripe',
       options = list(
-        searching = FALSE, paging = TRUE,
+        pageLength = nrow(data),
+        searching = FALSE,
         scrollX = TRUE, scrollY = FALSE,
-        dom = 'tlp',
+        dom = 't',
         scrollCollapse = TRUE
       )
     )

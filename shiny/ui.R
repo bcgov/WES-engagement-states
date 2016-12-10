@@ -22,11 +22,18 @@ fixedPage(
         "Engagement State",
         value = "tab_engagement",
         div(
-          id ="tab_engagement",
-          selectInput(
-            "engagement_org", "Organization:",
-            choices = org_names_list,
-            width = "400px"
+          id = "tab_engagement",
+          div(
+            style = "display: inline-block; vertical-align: top;",
+            selectInput(
+              "engagement_org", "Organization:",
+              choices = org_names_list,
+              width = "400px"
+            )
+          ),
+          div(
+            style = "display: inline-block; vertical-align: top;",
+            br(), downloadButton("btn_report", "Generate report")
           ),
           fixedRow(
             column(6, plotOutput("engagement_plot_13")),
@@ -44,7 +51,6 @@ fixedPage(
               )
             })
           ),
-          downloadButton("report", "Generate report"),
           DT::dataTableOutput("engagement_table"),
           downloadButton("engagement_data_download", "Export as CSV")
         )
