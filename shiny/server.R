@@ -58,6 +58,7 @@ function(input, output, session) {
     DT::datatable(
       data,
       rownames = FALSE,
+      colnames = gsub("\\.", " ", colnames(data)),
       selection = 'none',
       class = 'stripe',
       options = list(
@@ -70,12 +71,12 @@ function(input, output, session) {
   })
   
   output$engagement_plot_13 <- renderPlot({
-    p <- engagement_plot(engagement_data_agg(), 13)
+    p <- engagement_plot(engagement_data_agg(), 2013)
     p
     #ggiraph(code = print(p), width_svg = 15, height_svg = 10)
   })
   output$engagement_plot_15 <- renderPlot({
-    p <- engagement_plot(engagement_data_agg(), 15)
+    p <- engagement_plot(engagement_data_agg(), 2015)
     p
     #ggiraph(code = print(p), width_svg = 15, height_svg = 10)
   })
@@ -102,6 +103,7 @@ function(input, output, session) {
     DT::datatable(
       data,
       rownames = FALSE,
+      colnames = gsub("\\.", " ", colnames(data)),
       selection = 'none',
       class = 'stripe',
       options = list(

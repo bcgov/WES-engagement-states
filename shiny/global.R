@@ -88,10 +88,10 @@ eng_state_data <- suppressWarnings(
   dplyr::full_join(
     eng_state_data_13, eng_state_data_15,
     by = c("Org.ID", "Engagement.State"),
-    suffix = c(".13", ".15")
+    suffix = c(".2013", ".2015")
   )) %>%
-  dplyr::select(-Organization.15) %>%
-  dplyr::rename(Organization = Organization.13)
+  dplyr::select(-Organization.2015) %>%
+  dplyr::rename(Organization = Organization.2013)
 
 # -------------- Set up the migration data ---------------
 

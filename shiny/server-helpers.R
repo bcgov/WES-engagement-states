@@ -53,22 +53,22 @@ engagement_plot <- function(data, year) {
     theme_bw(26) +
     theme(panel.grid.minor = element_blank(),
           plot.title = element_text(hjust = 0.5)) +
-    ggtitle(paste0("20", year))
+    ggtitle(year)
 }
 
 # Aggregate engagement data from multiple organizations into one summary
 engagement_agg <- function(data) {
   data %>% group_by_("Engagement.State") %>%
     summarise(
-      Satisfaction.13 = round(weighted.mean(Satisfaction.13, Employees.13), 1),
-      Commitment.13 = round(weighted.mean(Commitment.13, Employees.13), 1),
-      Employees.13 = sum(Employees.13),
-      Satisfaction.15 = round(weighted.mean(Satisfaction.15, Employees.15), 1),
-      Commitment.15 = round(weighted.mean(Commitment.15, Employees.15), 1),
-      Employees.15 = sum(Employees.15)
+      Satisfaction.2013 = round(weighted.mean(Satisfaction.2013, Employees.2013), 1),
+      Commitment.2013 = round(weighted.mean(Commitment.2013, Employees.2013), 1),
+      Employees.2013 = sum(Employees.2013),
+      Satisfaction.2015 = round(weighted.mean(Satisfaction.2015, Employees.2015), 1),
+      Commitment.2015 = round(weighted.mean(Commitment.2015, Employees.2015), 1),
+      Employees.2015 = sum(Employees.2015)
     ) %>%
-    mutate(Percent.13 = round(Employees.13 / sum(Employees.13) * 100)) %>%
-    mutate(Percent.15 = round(Employees.15 / sum(Employees.15) * 100)) %>%
+    mutate(Percent.2013 = round(Employees.2013 / sum(Employees.2013) * 100)) %>%
+    mutate(Percent.2015 = round(Employees.2015 / sum(Employees.2015) * 100)) %>%
     arrange(Engagement.State)
 }
 
