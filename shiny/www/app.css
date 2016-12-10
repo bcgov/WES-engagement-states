@@ -91,6 +91,25 @@ body {
   margin-left: 10px;
 }
 
+#migration_plot_area {
+  position: relative;
+  margin-top: 25px;
+}
+
+#migration_plot_title_left,
+#migration_plot_title_right {
+  position: absolute;
+  top: -13px;
+  font-size: 24px;
+  font-weight: bold;
+}
+#migration_plot_title_left {
+  left: 20px;
+}
+#migration_plot_title_right {
+  right: 20px;
+}
+
 #engagement_table,
 #migration_table {
   margin-top: 30px;

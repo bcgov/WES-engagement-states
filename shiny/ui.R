@@ -67,7 +67,12 @@ fixedPage(
             choices = org_names_list,
             width = "400px"
           ),
-          sankeyNetworkOutput("migration_plot"),
+          div(
+            id = "migration_plot_area",
+            div(id = "migration_plot_title_left", "2013"),
+            div(id = "migration_plot_title_right", "2015"),
+            sankeyNetworkOutput("migration_plot")
+          ),
           DT::dataTableOutput("migration_table"),
           downloadButton("migration_data_download", "Export as CSV")
         )
