@@ -101,15 +101,15 @@ migration_data_full <- dplyr::select_(WES_data,
 migration_data_full$ENGSTATE13 <- dplyr::recode_factor(
   migration_data_full$ENGSTATE13,
   "Moderately Engaged" = "Engaged",
-  "Unhappily Dedicated" = "Dedicated",
-  "Happily Detached" = "Detached",
+  "Unhappily Dedicated" = "Unhappily Dedicated",
+  "Happily Detached" = "Happily Detached",
   "Minimally Engaged" = "Disengaged"
 )
 migration_data_full$ENGSTATE15 <- dplyr::recode_factor(
   migration_data_full$ENGSTATE15,
   "Moderately Engaged" = "Engaged",
-  "Unhappily Dedicated" = "Dedicated",
-  "Happily Detached" = "Detached",
+  "Unhappily Dedicated" = "Unhappily Dedicated",
+  "Happily Detached" = "Happily Detached",
   "Minimally Engaged" = "Disengaged"
 )
 levels(migration_data_full$ENGSTATE13) <- c(
