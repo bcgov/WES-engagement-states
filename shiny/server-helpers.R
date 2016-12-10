@@ -2,19 +2,19 @@
 get_migration_data <- function(org) {
   if (org == "all") {
     migration_data <- migration_data_full
-    migration_data$ENGSTATE13[is.na(migration_data$ORGID13)] <- "N/A"
-    migration_data$ENGSTATE15[is.na(migration_data$ORGID15)] <- "N/A"
+    migration_data$ENGSTATE13[is.na(migration_data$ORGID13)] <- "Not in Population"
+    migration_data$ENGSTATE15[is.na(migration_data$ORGID15)] <- "Not in Population"
   } else {
     migration_data <- dplyr::filter(migration_data_full,
                                     ORGID15 == org | ORGID13 == org)
     idx_na13 <- migration_data$ORGID13 != org | is.na(migration_data$ORGID13)
     idx_na15 <- migration_data$ORGID15 != org | is.na(migration_data$ORGID15)
-    migration_data$ENGSTATE13[idx_na13] <- "N/A"
-    migration_data$ENGSTATE15[idx_na15] <- "N/A"
+    migration_data$ENGSTATE13[idx_na13] <- "Not in Population"
+    migration_data$ENGSTATE15[idx_na15] <- "Not in Population"
   }
 
-  migration_data$ENGSTATE13[is.na(migration_data$ENGSTATE13)] <- "Incomplete"
-  migration_data$ENGSTATE15[is.na(migration_data$ENGSTATE15)] <- "Incomplete"
+  migration_data$ENGSTATE13[is.na(migration_data$ENGSTATE13)] <- "Non Respondent"
+  migration_data$ENGSTATE15[is.na(migration_data$ENGSTATE15)] <- "Non Respondent"
   
   migration_data <- migration_data %>%
     dplyr::group_by(ENGSTATE13, ENGSTATE15) %>%

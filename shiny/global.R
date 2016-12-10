@@ -113,6 +113,6 @@ migration_data_full$ENGSTATE15 <- dplyr::recode_factor(
   "Minimally Engaged" = "Disengaged"
 )
 levels(migration_data_full$ENGSTATE13) <- c(
-  levels(migration_data_full$ENGSTATE13), "Incomplete", "N/A")
+  levels(migration_data_full$ENGSTATE13), "Non Respondent", "Not in Population")
 levels(migration_data_full$ENGSTATE15) <- c(
-  levels(migration_data_full$ENGSTATE15), "Incomplete", "N/A")
+  levels(migration_data_full$ENGSTATE15), "Non Respondent", "Not in Population")
