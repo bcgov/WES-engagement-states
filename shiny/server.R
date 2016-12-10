@@ -43,7 +43,8 @@ function(input, output, session) {
   # The engagement data in the format that should be shown to the user visually
   engagement_data_view <- reactive({
     engagement_data() %>%
-      dplyr::select(-Org.ID)
+      dplyr::select(-c(Org.ID, Commitment.2013, Commitment.2015,
+                       Satisfaction.2013, Satisfaction.2015))
   })
   
   output$engagement_table <- DT::renderDataTable({
