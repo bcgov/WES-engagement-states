@@ -11,7 +11,7 @@ fixedPage(
     # Header
     img(src = "BCStats.png", id = "logo"),
     div(id = "titleSection",
-        h1(strong("BC Work Environment Survey"))
+        h1(strong("BC Public Service", br(), "Work Environment Survey (WES)"))
     ),
     
     tabsetPanel(
@@ -28,7 +28,22 @@ fixedPage(
             choices = org_names_list,
             width = "400px"
           ),
-          plotOutput("engagement_plot"),
+          fixedRow(
+            column(6, plotOutput("engagement_plot_13")),
+            column(6, plotOutput("engagement_plot_15"))
+          ),
+          div(
+            id = "engagement_plots_legend",
+            lapply(seq(ENG_STATES_FULL), function(x) {
+              span(
+                span(
+                  class = "legend_circle",
+                  style = paste0("background: ", PLOT_COLS[x])
+                ),
+                ENG_STATES_FULL[x]
+              )
+            })
+          ),
           downloadButton("report", "Generate report"),
           DT::dataTableOutput("engagement_table"),
           downloadButton("engagement_data_download", "Export as CSV")

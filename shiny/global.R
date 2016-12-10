@@ -38,7 +38,29 @@ org_names_list <- c("All" = "all", org_names_list)
 
 # ------------ Set up data for the engagement state bubble plot ---------
 
-eng_state_data <- WES_data %>%
+# TODO get rid of this duplicated code - it has to be abstracted away!
+eng_state_data_13 <- WES_data %>%
+  dplyr::select(ORGID13, ORGANIZATION13, ENGSTATE13, COMMITMENT13, SAT13) %>%
+  dplyr::filter(!is.na(ENGSTATE13)) %>%
+  dplyr::group_by(ORGID13, ORGANIZATION13, ENGSTATE13) %>%
+  dplyr::summarise(
+    COMMITMENT13 = round(mean(COMMITMENT13), 1),
+    SAT13 = round(mean(SAT13), 1),
+    Employees = n()
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::group_by(ORGID13) %>%
+  dplyr::mutate(Percent = round(Employees / sum(Employees) * 100)) %>%
+  dplyr::ungroup() %>%
+  dplyr::arrange(ORGANIZATION13, ENGSTATE13) %>%
+  dplyr::rename(
+    Org = ORGANIZATION13,
+    Org.ID = ORGID13,
+    Engagement.State = ENGSTATE13,
+    Commitment = COMMITMENT13,
+    Satisfaction = SAT13
+  )
+eng_state_data_15 <- WES_data %>%
   dplyr::select(ORGID15, ORGANIZATION15, ENGSTATE15, COMMITMENT15, SAT15) %>%
   dplyr::filter(!is.na(ENGSTATE15)) %>%
   dplyr::group_by(ORGID15, ORGANIZATION15, ENGSTATE15) %>%
@@ -59,7 +81,14 @@ eng_state_data <- WES_data %>%
     Commitment = COMMITMENT15,
     Satisfaction = SAT15
   )
-
+eng_state_data <- suppressWarnings(
+  dplyr::full_join(
+    eng_state_data_13, eng_state_data_15,
+    by = c("Org.ID", "Engagement.State"),
+    suffix = c(".13", ".15")
+  )) %>%
+  dplyr::select(-Org.15) %>%
+  dplyr::rename(Org = Org.13)
 
 # -------------- Set up the migration data ---------------
 

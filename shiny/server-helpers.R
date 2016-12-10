@@ -33,37 +33,45 @@ get_migration_data <- function(org) {
 }
 
 # Code for the engagement plot
-engagement_plot <- function(data) {
+engagement_plot <- function(data, year) {
+  cols_keep <- grep(sprintf("\\.%s$", year), colnames(data), value = TRUE)
+  cols_keep <- c("Engagement.State", cols_keep)
+  data <- dplyr::select_(data, .dots = cols_keep)  
+  colnames(data) <- gsub(sprintf("(.*)\\.%s$", year), "\\1", colnames(data))
+  
   mean_satisfaction <- sum(data$Satisfaction * data$Percent / 100)
   mean_commitment <- sum(data$Commitment * data$Percent / 100)
-  
+
   ggplot(
     data,
     aes(x = Commitment, y = Satisfaction,
         fill = Engagement.State)) +
     geom_vline(xintercept = mean_commitment, col = "#555555") +
     geom_hline(yintercept = mean_satisfaction, col = "#555555") +
-    geom_point(aes(size = Percent), shape = 21, colour = "black") +
+    geom_point(aes(size = Percent), shape = 21, colour = "black",
+               show.legend = FALSE) +
     scale_size_area(max_size = 50, guide = FALSE) + 
     xlim(0, 120) + ylim(0, 120) +
     scale_fill_manual(values = PLOT_COLS) +
     theme_bw(26) +
-    guides(fill = guide_legend("Engagement State",
-                               override.aes = list(size = 4))) +
-    theme(legend.key = element_blank(), panel.grid.minor = element_blank(),
-          legend.key.height = unit(1.5, "line"), legend.position = "right")
+    theme(panel.grid.minor = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    ggtitle(paste0("20", year))
 }
 
 # Aggregate engagement data from multiple organizations into one summary
 engagement_agg <- function(data) {
-  data %>%
-    group_by_("Engagement.State") %>%
+  data %>% group_by_("Engagement.State") %>%
     summarise(
-      Satisfaction = round(weighted.mean(Satisfaction, Employees), 1),
-      Commitment = round(weighted.mean(Commitment, Employees), 1),
-      Employees = sum(Employees)
+      Satisfaction.13 = round(weighted.mean(Satisfaction.13, Employees.13), 1),
+      Commitment.13 = round(weighted.mean(Commitment.13, Employees.13), 1),
+      Employees.13 = sum(Employees.13),
+      Satisfaction.15 = round(weighted.mean(Satisfaction.15, Employees.15), 1),
+      Commitment.15 = round(weighted.mean(Commitment.15, Employees.15), 1),
+      Employees.15 = sum(Employees.15)
     ) %>%
-    mutate(Percent = round(Employees / sum(Employees) * 100)) %>%
+    mutate(Percent.13 = round(Employees.13 / sum(Employees.13) * 100)) %>%
+    mutate(Percent.15 = round(Employees.15 / sum(Employees.15) * 100)) %>%
     arrange(Engagement.State)
 }
 

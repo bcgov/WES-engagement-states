@@ -15,11 +15,8 @@ function(input, output, session) {
   
   # Get aggregated engagement data
   engagement_data_agg <- eventReactive(engagement_data(), {
-    data <- dplyr::select_(
-      engagement_data(),
-      "Engagement.State", "Satisfaction", "Commitment",
-      "Employees", "Percent")
-    
+    data <- dplyr::select(engagement_data(), -Org.ID, -Org)
+
     if (input$engagement_org != "all") {
       data
     } else {
@@ -46,8 +43,7 @@ function(input, output, session) {
   # The engagement data in the format that should be shown to the user visually
   engagement_data_view <- reactive({
     engagement_data() %>%
-      dplyr::select_("Org", "Engagement.State", "Satisfaction", "Commitment",
-                     "Employees", "Percent")
+      dplyr::select(-Org.ID)
   })
   
   output$engagement_table <- DT::renderDataTable({
@@ -66,8 +62,13 @@ function(input, output, session) {
     )
   })
   
-  output$engagement_plot <- renderPlot({
-    p <- engagement_plot(engagement_data_agg())
+  output$engagement_plot_13 <- renderPlot({
+    p <- engagement_plot(engagement_data_agg(), 13)
+    p
+    #ggiraph(code = print(p), width_svg = 15, height_svg = 10)
+  })
+  output$engagement_plot_15 <- renderPlot({
+    p <- engagement_plot(engagement_data_agg(), 15)
     p
     #ggiraph(code = print(p), width_svg = 15, height_svg = 10)
   })

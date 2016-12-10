@@ -71,6 +71,22 @@ body {
   padding-top: 15px;
 }
 
+#engagement_plots_legend {
+  margin: 10px 0 20px;
+  text-align: center;
+  font-size: 17px;
+}
+
+#engagement_plots_legend .legend_circle {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 10px;
+  margin-left: 20px;
+  border: 1px solid #777;
+  vertical-align: middle;
+}
+
 #engagement_table,
 #migration_table {
   margin-top: 30px;
