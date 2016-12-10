@@ -121,7 +121,8 @@ function(input, output, session) {
         dom = 't',
         scrollCollapse = TRUE
       )
-    )
+    ) %>%
+    formatString(columns = c("Percent.of.2015"), suffix = "%")
   })
   
   output$migration_plot <- renderSankeyNetwork({

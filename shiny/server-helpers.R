@@ -24,8 +24,12 @@ get_migration_data <- function(org) {
       Engagement.2013 = ENGSTATE13,
       Engagement.2015 = ENGSTATE15,
       Employees = n
-    )  
-  
+    ) %>%
+    dplyr::group_by(Engagement.2015) %>%
+    dplyr::mutate(Percent.of.2015 = round(Employees / sum(Employees) * 100)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(Engagement.2015)
+
   migration_data
 }
 
