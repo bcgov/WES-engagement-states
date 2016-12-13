@@ -8,11 +8,10 @@ library(networkD3)
 library(readr)
 
 # Consistent colour scheme to use in plots
-PLOT_COLS <- c("#325A80", "#5091CD", "#FFFF05", "#D2BE32", "#FA1E1E", "#A40000")
+PLOT_COLS <- c("#325A80", "#D2BE32", "#FFFF05", "#A40000", "#FA1E1E", "#5091CD")
 
 ENG_STATES_FULL <- c(
-  "Engaged", "Moderately Engaged", "Unhappily Dedicated",
-  "Happily Detached", "Minimally Engaged", "Disengaged"
+  "Engaged", "Unhappily Dedicated", "Happily Detached", "Disengaged"
 )
 
 # ---------------  Read and pre process the full data --------------
@@ -98,20 +97,6 @@ eng_state_data <- suppressWarnings(
 migration_data_full <- dplyr::select_(WES_data,
                                       "ORGID13", "ENGSTATE13",
                                       "ORGID15", "ENGSTATE15")
-migration_data_full$ENGSTATE13 <- dplyr::recode_factor(
-  migration_data_full$ENGSTATE13,
-  "Moderately Engaged" = "Engaged",
-  "Unhappily Dedicated" = "Unhappily Dedicated",
-  "Happily Detached" = "Happily Detached",
-  "Minimally Engaged" = "Disengaged"
-)
-migration_data_full$ENGSTATE15 <- dplyr::recode_factor(
-  migration_data_full$ENGSTATE15,
-  "Moderately Engaged" = "Engaged",
-  "Unhappily Dedicated" = "Unhappily Dedicated",
-  "Happily Detached" = "Happily Detached",
-  "Minimally Engaged" = "Disengaged"
-)
 levels(migration_data_full$ENGSTATE13) <- c(
   levels(migration_data_full$ENGSTATE13), "Non Respondent", "Not in Population")
 levels(migration_data_full$ENGSTATE15) <- c(

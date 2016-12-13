@@ -32,13 +32,6 @@ if (params$Organization != "all" &&
               params$Organization))
 }
 
-WES_data$ENGSTATE13 <- recode(WES_data$ENGSTATE13,"c('Engaged','Moderately Engaged')='Engaged'")
-WES_data$ENGSTATE15 <- recode(WES_data$ENGSTATE15,"c('Engaged','Moderately Engaged')='Engaged'")
-
-WES_data$ENGSTATE13 <- recode(WES_data$ENGSTATE13,"c('Disengaged','Minimally Engaged')='Disengaged'")
-WES_data$ENGSTATE15 <- recode(WES_data$ENGSTATE15,"c('Disengaged','Minimally Engaged')='Disengaged'")
-
-
 # Start the process to turn the data into what is needed to create a combined dataset
 
 ## Turn "Wide" data (where time is delineated by different variables) into "Long" data (where there is a variable
