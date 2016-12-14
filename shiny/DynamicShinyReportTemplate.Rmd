@@ -14,6 +14,7 @@ library(knitr)
 library(tidyverse)
 library(readr)
 library(car)
+library(pander)
 
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -106,23 +107,6 @@ IndexOrgName <- combinedStates %>% filter(ORGID15==params$Organization) %>% sele
 
 ## `r IndexOrgName`
 
-
-
-Engagement states are calculated using responses from the *BC Public Service Work Environment Survey*. The matrix below shows the four different engagement states employees may experience. Each state is determined by plotting commitment scores with overall satisfaction scores (combined job and organization satisfaction) according to the criteria in the matrix. For example, if employees are highly committed (have commitment scores of 60 points or more) but are not satisfied (satisfaction scores lower than 60 points), then they are considered to be unhappily dedicated.
-
-```{r, echo= FALSE, message= FALSE}
-library(pander)
-MatrixTest <-matrix(c("Happily detached",
-                      "Engaged", 
-                      "Disengaged", 
-                      "Unhappily dedicated"), ncol=2, byrow=TRUE)
-colnames(MatrixTest) <- c("Commitment < 60 points", "Commitment >= 60 points")
-rownames(MatrixTest) <- c("**Satisfaction >= 60 points**", "**Satisfaction < 60 points**")
-
-#pandoc.table(MatrixTest, style="rmarkdown")
-kable(MatrixTest, caption = "Table 1: Engagement State Matrix", align = c("c", "c"))
-```
-
 The purpose of this summary is to show how the state of engagement has changed in the organization between the 2013 and 2015 survey cycles
 
 ### How has the state of engagement changed?
@@ -132,7 +116,7 @@ The table below shows the overall number of employees in each state from both su
 ```{r, echo = FALSE}
 
 
-kable(combinedStates %>% filter(ORGID15==params$Organization), caption = "Table 2: Organizational Engagement State", digits = 2, 
+kable(combinedStates %>% filter(ORGID15==params$Organization), caption = "Table 1: Organizational Engagement State", digits = 2, 
       col.names = c("ID","Engagement", "Count 2013", "Count 2015", "Gain/Loss", "Change (%)", "Organization"), 
       align = c("l","l","c","c","c","c","l"))
 
@@ -153,7 +137,7 @@ Four types of migration describe the changes in the overall count and percentage
 
 1. **Changes in continuing respondents**: perceptions of those who answered in both 2013 & 2015
 2. **Changes in BC Public Service population**: employees hired into the BC Public Service since 2013 or departed from the BC Public Service after 2013
-3. **Changes in organization population**: employees who transferred from another organization into Public Safety and Solicitor General since 2013 or transferred out of Public Safety and Solicitor General and into another organization after 2015
+3. **Changes in organization population**: employees who transferred from another organization into the reference organization since 2013 or transferred out of the reference organization and into another organization after 2015
 4. **Changes in sample**: single-year respondents (answered in 2013 or 2015).
 
 

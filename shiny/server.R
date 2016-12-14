@@ -138,4 +138,30 @@ function(input, output, session) {
       write.csv(migration_data(), file, row.names = FALSE, quote = TRUE)
     }
   )
+  
+  # -------- Tab 3 - Methods ---------
+  
+  engageMatrix <-matrix(c("Happily detached",
+                          "Engaged", 
+                          "Disengaged", 
+                          "Unhappily dedicated"), ncol=2, byrow=TRUE)
+  colnames(engageMatrix) <- c("Commitment < 60 points", "Commitment >= 60 points")
+  rownames(engageMatrix) <- c("Satisfaction >= 60 points", "Satisfaction < 60 points")
+  
+  output$matrixTable <- DT::renderDataTable(engageMatrix,
+                                            class = 'compact center',
+                                            caption = htmltools::tags$caption(
+                                              style = 'text-align: center;',
+                                              'Engagement Matrix'
+                                            ),
+                                            options=list(
+                                               dom='Bt', # only show buttons and table, hence Bt
+                                               columnDefs = list(
+                                                 list(targets={{1}},orderable = FALSE),
+                                                 list(targets={{2}},orderable = FALSE),
+                                                 list(targets={{1}},class = 'dt-center'),
+                                                 list(targets={{2}},class = 'dt-center')
+                                                                )
+                                                        )
+                                        )
 }

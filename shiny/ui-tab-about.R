@@ -1,7 +1,9 @@
 tagList(
   p(
-    "This summary shows how the state of engagement has changed in your organization between 2013 and 2015 survey cycles, and the factors that may have impacted these changes."
+    "This summary shows how the state of engagement has changed in your organization between 2013 and 2015 survey cycles, and the factors that may have impacted these changes.Engagement states are calculated using responses from the BC Public Service Work Environment Survey. The matrix below shows the four different engagement states employees may experience. Each state is determined by plotting commitment scores with overall satisfaction scores (combined job and organization satisfaction) according to the criteria in the matrix. For example, if employees are highly committed (have commitment scores of 60 points or more) but are not satisfied (satisfaction scores lower than 60 points), then they are considered to be unhappily dedicated."
   ),
+  br(),
+  dataTableOutput('matrixTable'),
   h2("Background"),
   p(
     "This summary presents the different states of employee engagement for your organization in 2015 and how these states have changed since 2013. The organization population used for this analysis is based on information from the Corporate Human Resource and Information Payroll System (CHIPS) file extracted on August 30, 2011. Due to the considerable amount of organizational change that occurred in the BC Public Service from 2013 and 2015, BC Stats used employees' job position numbers to map their various 2013 and 2015 migration scenarios into the new organization structures. Therefore, the employee counts in this report may not correspond with the employee totals reported previously in the 2013 and 2015 organization reports."
