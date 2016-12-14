@@ -131,13 +131,3 @@ combinedStates %>% filter(ORGID15==params$Organization) %>% filter(EngagementSco
 
 
 Since 2013, the organization has had a net `r ifelse((NetChange("Engaged"))>0,"gain of", ifelse((NetChange("Engaged"))<0,"loss of","change of"))` **`r abs((NetChange("Engaged")))`** engaged employees and a net `r ifelse((NetChange("Disengaged"))>0,"gain of", ifelse((NetChange("Disengaged"))<0,"loss of","change of"))` **`r abs((NetChange("Disengaged")))`** disengaged employees.
-
-What characterizes these changes?
-Four types of migration describe the changes in the overall count and percentage of employees in each state from 2013 to 2015
-
-1. **Changes in continuing respondents**: perceptions of those who answered in both 2013 & 2015
-2. **Changes in BC Public Service population**: employees hired into the BC Public Service since 2013 or departed from the BC Public Service after 2013
-3. **Changes in organization population**: employees who transferred from another organization into the reference organization since 2013 or transferred out of the reference organization and into another organization after 2015
-4. **Changes in sample**: single-year respondents (answered in 2013 or 2015).
-
-
