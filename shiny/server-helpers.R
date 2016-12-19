@@ -92,7 +92,7 @@ migration_plot <- function(data) {
   sankeyNetwork(Links = data, Nodes = states_df,
                 Source = 'Engagement.2013', Target = 'Engagement.2015',
                 Value = 'Employees',
-                NodeID = 'state', fontSize = 22, fontFamily = "Arial",
+                NodeID = 'state', fontSize = 22, fontFamily = "Adobe-Garamond-Pro",
                 nodeWidth = "20", nodePadding = "10", iterations = 0,
                 NodeGroup = 'state', colourScale = JS(colours_js_d3))
 }

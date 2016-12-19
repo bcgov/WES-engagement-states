@@ -1,6 +1,18 @@
+@font-face {
+	font-family: 'Myriad-Pro';
+	src: url('fonts/MyriadPro/MyriadPro-Regular.otf') format("opentype");
+}
+@font-face {
+	font-family: 'Adobe-Garamond-Pro';
+	src: url('fonts/AdobeGaramondPro/AGaramondPro-Regular.otf') format("opentype");
+}
 body {
   background: #fafafa;
   font-size: 18px;
+  font-family: 'Adobe-Garamond-Pro', Arial;
+}
+h1, h2, h3, h4, label, th, .nav>li>a {
+  font-family: 'Myriad-Pro', Arial;
 }
 .container {
   border: 1px solid #ccc;
@@ -141,7 +153,7 @@ body {
 }
 
 #tab_info {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #tab_info h2 {
