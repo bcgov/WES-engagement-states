@@ -16,7 +16,7 @@ fixedPage(
     
     tabsetPanel(
       id = "main_nav",
-      
+
       # Tab 1 - Engagement state
       tabPanel(
         "Engagement State",
@@ -94,7 +94,7 @@ fixedPage(
         )
       ),
       
-      # Tab 3 - Description
+      # Tab 3 - Methods
       tabPanel(
         "Methods",
         value = "tab_info",
@@ -102,7 +102,20 @@ fixedPage(
           id = "tab_info",
           source(file.path("ui-tab-about.R"), local = TRUE)$value
         )
+      ),
+      
+      # Tab 4 - Contact
+      tabPanel(
+        "Contact",
+        value = "tab_contact",
+        div(
+          id = "tab_contact",
+          source(file.path("ui-tab-contact.R"), local = TRUE)$value
+        )
       )
-    )
+    ),
+    br(),
+    tags$a(href="http://www2.gov.bc.ca/gov/content/home/copyright",
+           "Copyright information")
   ))
 )
