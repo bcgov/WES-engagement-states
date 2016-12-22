@@ -46,18 +46,32 @@ engagement_plot <- function(data, year) {
   ggplot(
     data,
     aes(x = Commitment, y = Satisfaction,
-        fill = Engagement.State)) +
-    geom_vline(xintercept = mean_commitment, col = "#555555") +
-    geom_hline(yintercept = mean_satisfaction, col = "#555555") +
+        fill = Engagement.State, colour = Engagement.State)) +
+    # cross-hairs
+    geom_segment(x=mean_commitment,xend=mean_commitment,y=0,yend=mean_satisfaction, col = "#7F7F7F",linetype="dashed") +
+    geom_segment(x=0,xend=mean_commitment,y=mean_satisfaction,yend=mean_satisfaction, col = "#7F7F7F",linetype="dashed") +
     geom_point(aes(size = Percent), shape = 21, colour = "black",
                show.legend = FALSE) +
-    scale_size_area(max_size = 50, guide = FALSE) + 
-    xlim(0, 120) + ylim(0, 120) +
+    scale_size_area(max_size = 50, guide = FALSE) +
+    # labels
+    geom_text(aes(label=paste(data$Percent,"%",sep="")), fontface = "bold") +
+    scale_colour_manual(values=FONT_COLS) +
+    guides(colour=FALSE) +
+    # axis
+    scale_x_continuous(breaks=seq(0,100,10), limits=c(0,125), expand=c(0,0)) +
+    scale_y_continuous(breaks=seq(0,100,10), limits=c(0,125), expand=c(0,0)) +
+    # axis lines
+    geom_segment(x = 0,xend = 100, y = 0, yend = 0, colour = "black") +
+    geom_segment(x = 0,xend = 0, y = 0, yend = 100, colour = "black") +
     scale_fill_manual(values = PLOT_COLS) +
-    theme_bw(26) +
+    theme_classic() +
+    ggtitle(year) +
     theme(panel.grid.minor = element_blank(),
-          plot.title = element_text(hjust = 0.5)) +
-    ggtitle(year)
+          plot.title = element_text(hjust = 0.5),
+          legend.key = element_blank(),
+          axis.line = element_blank(),
+          axis.title = element_text(hjust = 0.4))
+    
 }
 
 # Aggregate engagement data from multiple organizations into one summary

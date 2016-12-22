@@ -9,6 +9,7 @@ library(readr)
 
 # Consistent colour scheme to use in plots
 PLOT_COLS <- c("#325A80", "#D2BE32", "#FFFF05", "#A40000", "#FA1E1E", "#5091CD")
+FONT_COLS <-c("white","black","black","white","black","black")
 
 ENG_STATES_FULL <- c(
   "Engaged", "Unhappily Dedicated", "Happily Detached", "Disengaged"
