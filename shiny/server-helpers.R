@@ -52,6 +52,7 @@ engagement_plot <- function(data, year) {
     geom_segment(x=0,xend=mean_commitment,y=mean_satisfaction,yend=mean_satisfaction, col = "#7F7F7F",linetype="dashed") +
     geom_point(aes(size = Percent), shape = 21, colour = "black",
                show.legend = FALSE) +
+    coord_fixed() +
     scale_size_continuous(limits = c(1,100), range = c(5,60), guide = FALSE) +
     # labels
     geom_text(aes(label=paste(data$Percent,"%",sep="")), fontface = "bold") +
