@@ -11,7 +11,8 @@ params:
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(readr)
 library(car)
 library(pander)
