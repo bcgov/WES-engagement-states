@@ -28,15 +28,14 @@ function(input, output, session) {
   output$btn_report <- downloadHandler(
     filename = "BC-WES-report.html",
     content = function(file) {
-      tmpFile <- tempfile(tmpdir = ".", fileext = ".html")
-      
       params <- list(Organization = input$engagement_org)
-      
-      rmarkdown::render("DynamicShinyReportTemplate.Rmd", output_file = tmpFile,
+      out_file <- rmarkdown::render("data/DynamicShinyReportTemplate.Rmd",
+                        output_dir = "output",
+                        intermediates_dir = "output",
                         params = params,
                         envir = new.env(parent = globalenv())
       )
-      file.rename(tmpFile, file)
+      file.rename(out_file, file)
     }
   )
   

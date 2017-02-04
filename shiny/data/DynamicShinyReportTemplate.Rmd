@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #--------------- Set up the data for the RMD file ---------------
 
-WES_data <- read_csv("data/finalMockData.csv", 
+WES_data <- read_csv("finalMockData.csv", 
                           col_types = cols(COMMITMENT13 = col_number(), 
                                            COMMITMENT15 = col_number(),
                                            SAT13 = col_number(), 
