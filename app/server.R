@@ -28,6 +28,7 @@ function(input, output, session) {
   output$btn_report <- downloadHandler(
     filename = "BC-WES-report.html",
     content = function(file) {
+      shinyjs::show("loading-overlay")
       params <- list(Organization = input$engagement_org)
       out_file <- rmarkdown::render("data/DynamicShinyReportTemplate.Rmd",
                         output_dir = "output",
@@ -36,6 +37,7 @@ function(input, output, session) {
                         envir = new.env(parent = globalenv())
       )
       file.rename(out_file, file)
+      shinyjs::hide("loading-overlay")
     }
   )
   

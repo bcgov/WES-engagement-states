@@ -21,6 +21,25 @@ h1, h2, h3, h4, label, th, .nav>li>a {
   margin-bottom: 50px;
   padding-bottom: 20px;
 }
+#loading-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: 10000;
+  background: rgba(0,0,0,0.7);
+}
+#loading-overlay-msg {
+  font-size: 40px;
+  display: inline-block;
+  background: #fff;
+  padding: 15px 40px;
+  border-radius: 0px;
+  margin-top: 150px;
+  font-family: 'Myriad-Pro', Arial;
+}
 #logo {
   position: absolute;
   top: 10px;

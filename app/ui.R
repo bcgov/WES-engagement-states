@@ -1,8 +1,16 @@
 fixedPage(
   title = "BC Work Environment Survey",
   
+  shinyjs::useShinyjs(),
+  
   tags$head(
     tags$link(href = "app.css", rel = "stylesheet")
+  ),
+  
+  shinyjs::hidden(
+    div(id = "loading-overlay",
+       div(id = "loading-overlay-msg",
+           "Loading...", img(src = "loader.gif")))
   ),
   
   fixedRow(column(
