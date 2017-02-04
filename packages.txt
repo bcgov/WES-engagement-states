@@ -1,0 +1,1 @@
+'ggplot2', 'dplyr', 'tidyr', 'DT', 'networkD3', 'readr', 'knitr', 'car', 'pander'
