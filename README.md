@@ -15,7 +15,7 @@ Work Environment Survey employee engagement states
 
 #### Interactive app
 
-A live version of the app is hosted at [https://daattali.com/shiny/engagement_states/](https://daattali.com/shiny/engagement_states/)
+A live version of the app, using mock data, is hosted at [(http://rshiny-test-bcstats-wes-engagement-dev.pathfinder.gov.bc.ca/sample-apps/wes1]((http://rshiny-test-bcstats-wes-engagement-dev.pathfinder.gov.bc.ca/sample-apps/wes1)
 
 To run the app locally:
 
