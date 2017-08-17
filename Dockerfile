@@ -180,7 +180,7 @@ RUN chmod a+x /usr/bin/run-test.sh
 #
 # --------------------------------------------------------
 COPY app/ /srv/shiny-server/
-RUN mkdir /srv/shiny-server/output/ && \
+RUN mkdir -p /srv/shiny-server/output/ && \
     chown -R shiny:shiny /srv/shiny-server/
 
 # --------------------------------------------------------
