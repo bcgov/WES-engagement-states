@@ -98,6 +98,18 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
     rm -f version.txt ss-latest.deb && \
     cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 
+	
+# --------------------------------------------------------
+# GitHub R packages
+# --------------------------------------------------------
+ENV R_GH_LIBS "${RGHLIBS}"
+RUN if [ "$R_GH_LIBS" ]; \
+   then \
+   echo "Installing GitHub packages: '$R_GH_LIBS'" && \
+   install2.r --error remotes && \
+   R -e "lapply(strsplit(Sys.getenv('R_GH_LIBS'), '\\\s+')[[1]], remotes::install_github)"; \
+   fi
+
 # --------------------------------------------------------
 #
 # Install R packages if required
