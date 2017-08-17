@@ -2,7 +2,7 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rshiny",
+		"name": "rshiny_wes",
 		"annotations": {
 			"description": "Template for building and deploying simple one-app shiny apps using open source r and open source shiny",
 			"tags": "r-language,r,shiny,shiny server"
