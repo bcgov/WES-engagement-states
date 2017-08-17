@@ -102,7 +102,7 @@ migration_plot <- function(data) {
     length(unique(data$Engagement.2013))
   
   colours_js <- paste0('"', paste(PLOT_COLS, collapse = '","'), '"')
-  colours_js_d3 <- sprintf('d3.scale.ordinal().range([%s])', colours_js)
+  colours_js_d3 <- sprintf('d3.scaleOrdinal().range([%s])', colours_js)
   
   sankeyNetwork(Links = data, Nodes = states_df,
                 Source = 'Engagement.2013', Target = 'Engagement.2015',
