@@ -15,8 +15,6 @@ Work Environment Survey employee engagement states
 
 #### Interactive app
 
-A live version of the app, using mock data, is hosted at [http://wes-bcstats-wes-engagement-prod.pathfinder.gov.bc.ca/](http://wes-bcstats-wes-engagement-prod.pathfinder.gov.bc.ca/)
-
 To run the app locally:
 
 - Clone this git repository
